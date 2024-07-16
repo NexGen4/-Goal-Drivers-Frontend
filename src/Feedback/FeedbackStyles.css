@@ -1,0 +1,9 @@
+.rating-star{
+    color: rgb(170, 159, 159);
+    cursor: pointer;
+}
+
+.rating-star.clicked{
+    color: #E6BD07;
+    border: none;
+}

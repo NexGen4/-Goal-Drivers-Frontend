@@ -1,0 +1,160 @@
+.nav-container{
+  width: 100vw;
+  height: 12%;
+  top: 0;
+}
+
+nav{
+  background-color: hwb(250 2% 43%);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 0.2px;
+  padding-left: 2%;
+  padding-right: 2%;
+}
+
+span{
+  color: red;
+}
+
+nav ul li{
+  list-style-type: none;
+  display: inline-block;
+  padding: 10px 10px;
+
+}
+
+nav ul li a{
+  color: rgb(215, 215, 228);
+  text-decoration: none;
+  font-weight: bold;
+}
+
+nav ul li a:hover{
+  color: rgb(249, 7, 7);
+  transition: .3s;
+}
+
+
+button{
+  border: none;
+  background: #ec0606;
+  padding: 10px 15px;
+  border-radius: 50px;
+  color: rgb(249, 249, 249);
+  font-weight: bold;
+  font-size: 15px;
+  transition: .3s;
+}
+
+button:hover{
+transform: scale(1.1);
+cursor: pointer;
+}
+
+.edit{
+  border: none;
+  background: #f0473a;
+  padding: 5px 10px;
+  border-radius:30px ;
+  color: bisque;
+  font-weight: bold;
+  font-size: 15px;
+  transition: .3s;
+}
+
+.pay{
+  font-weight: bold;
+  padding: 2px 5px 2px 5px;
+  padding-right: 0.6px;
+  padding-left: 0.6px;
+  background-color: #ea1538;
+}
+
+
+.hfar{
+  float: right;
+}
+
+nav.serach_box{
+  display: flex;
+  margin: auto 0;
+  height: 50px;
+  line-height: 35px;
+}
+
+nav.search_box input{
+  border: none;
+  outline: none;
+  background: #ea1538;
+  height: 100%;
+  padding: 0 10px;
+  font-size: 20px;
+  width: 350px;
+}
+
+
+
+.btn{
+  padding: 6px 20px;
+  background:#fd0202;
+  border: 0;
+  outline: none;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 500;
+  border-radius: 30px;
+}
+
+.popup{
+  width: 400px;
+  background: #06eaf2;
+  border-radius: 6px;
+  position: absolute;
+  top: 0%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.1);
+  text-align: center;
+  padding: 30px 30px;
+  color: #333;
+  visibility: hidden;
+}
+
+
+.popup img{
+  
+  margin-top: -50px;
+  border-radius: 50%;
+  box-shadow:0 2px 5px rgba(0,0,0,0.2) 
+
+}
+
+.popup h2{
+  font-size: 38px;
+  font-weight: 500;
+  margin: 30px 0 10px;
+}
+
+.popup button{
+  width: 100%;
+  margin-top: 50px;
+  padding: 10px 0;
+  background: #2de814;
+  color: #333;
+  border: 0;
+  outline: none;
+  font-size: 18px;
+  border-radius: 4px;
+  cursor: pointer;
+  box-shadow:0 5px 5px rgba(0,0,0,0.2)
+
+  
+}
+
+
+
+
+
+
+
