@@ -1,0 +1,68 @@
+.Logo {
+  width: 100px;
+  height: 100px;
+  background-image: url('Logo.jpeg');
+  background-size: cover;
+}
+
+.Heading {
+  display: flex; /* Add this line */
+  align-items: center;
+  justify-content: center; /* Add this line */
+  margin-bottom: 20px; /* Add this line */
+}
+
+.Table_caption {
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
+  padding: 10px;
+  background-color: #eee;
+  color: #333;
+}
+
+.SellerReport {
+  background-color: #f5eded;
+  border: 1px solid #070707;
+  padding: 20px;
+  width: 21cm;
+  height: 29.7cm;
+  margin-top: 4rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+
+.Table {
+    width: 80%;
+    border-collapse: collapse;
+    font-size: 14px;
+    margin: 0 auto;
+    text-align: left;
+    font-size: 16px;
+    padding: 20px;
+    border-collapse: separate;
+    border-spacing: 10px;
+  }
+  
+
+
+  .print {
+    background-color: rgb(46, 6, 119); 
+    border: 1px solid;
+    border-color: rgb(2, 2, 43);
+    color: rgb(245, 243, 248);
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    border-radius: 4px;
+    transition-duration: 0.4s;
+    box-shadow: 0 8px 16px 0 rgba(121, 94, 240, 0.2), 0 6px 20px 0 rgba(13, 218, 207, 0.19);
+  }
+
+  .cancel{
+    background: rgb(204, 204, 224);
+    border: 1px solid;
+    border-color: rgb(10, 59, 59);
+}
+  

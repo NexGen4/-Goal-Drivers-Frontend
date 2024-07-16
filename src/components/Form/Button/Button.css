@@ -1,5 +1,5 @@
 .submit{
-    background: #016ABC;
+    background: #B9DFFF;
 	color: #fff;
 	border: 1px solid #eee;
 	border-radius: 20px;
@@ -15,8 +15,18 @@
     margin-left: 10px
 }
 
+.submit:hover{
+    background: #016ABC;
+	color: #fff;
+	border: 1px solid #eee;
+	border-radius: 20px;
+	box-shadow: 2px 2px 2px #eee;
+	text-shadow: none;
+}
+
+
 .cancel{
-    background: #e04438;
+    background: #ffbeb9;
 	color: #fff;
 	border: 1px solid #eee;
 	border-radius: 20px;
@@ -30,6 +40,15 @@
     font-size: 14px;
     border-radius: 60px;
     margin-right: 15px
+}
+
+.cancel:hover{
+    background: #e04438;
+	color: #fff;
+	border: 1px solid #eee;
+	border-radius: 20px;
+	box-shadow: 2px 2px 2px #eee;
+	text-shadow: none;
 }
 
 

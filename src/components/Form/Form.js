@@ -46,6 +46,7 @@ export default function FormBid() {
     <div className='bg'>
         <form method='get' id='productform'>
         <table border="0" className='frm'>
+          <caption>Product Details</caption>
           <tr>
             <th>Product Name</th>
             <td> <input type="text" className='text' id="name" required onChange={(e)=>{setProductName(e.target.value)}}/></td>
@@ -56,7 +57,7 @@ export default function FormBid() {
               <select name="category" id="category" className='text' required onChange={(e)=>{setProductCategory(e.value)}}>
                 <option value="RAM">RAM</option>
                 <option value="ROM">ROM</option>
-                <option value="NIC">Laptop</option>
+                <option value="NIC">NIC</option>
                 <option value="Printers">Printers</option>
               </select>
             </td>

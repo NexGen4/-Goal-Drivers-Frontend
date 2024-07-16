@@ -1,0 +1,39 @@
+.product-details {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 20px;
+  background-color: rgb(201, 250, 250);
+  }
+  
+  .product-details img {
+  max-width: 100%;
+  margin-bottom: 20px;
+  }
+  
+  .product-details p {
+  margin-bottom: 20px;
+  }
+  
+  .product-details label {
+  margin-right: 10px;
+  }
+  
+  .product-details input[type="number"] {
+  width: 50px;
+  margin-right: 10px;
+  padding: 5px;
+  }
+  
+  .product-details button {
+  padding: 10px 20px;
+  border: none;
+  background-color: #007bff;
+  color: #fff;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  }
+  
+  .product-details button:hover {
+  background-color: #0062cc;
+  }
