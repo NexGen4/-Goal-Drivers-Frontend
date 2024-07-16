@@ -7,19 +7,27 @@ export default function BidForm({params , pname ,seller_id}) {
   const[bidTime, setBidTime] = useState(0);
   
   function addProduct_(){
-      axios.post("http://localhost:3002/api/seller/add_bid_product",{
-          name:pname,
-          description:params,
-          amount:1,
-          seller_id:seller_id,
-          base_price:baseValue,
-          duration:bidTime
-      }).then((res)=>{
-        console.log(res.data)
-        alert(res.data)
-      }).catch((err)=>{
-        alert(err)
-      })
+    console.log("ddfsfg")
+
+      console.log(params)
+      console.log(pname)
+      console.log(baseValue)
+      console.log(bidTime)
+      console.log(seller_id)
+
+      // axios.post("http://localhost:3002/api/seller/add_bid_product",{
+      //     name:pname,
+      //     description:params,
+      //     amount:1,
+      //     seller_id:seller_id,
+      //     base_price:baseValue,
+      //     duration:bidTime
+      // }).then((res)=>{
+      //   console.log(res.data)
+      //   alert(res.data)
+      // }).catch((err)=>{
+      //   alert(err)
+      // })
   }
 
   function check_(){
@@ -29,7 +37,7 @@ export default function BidForm({params , pname ,seller_id}) {
   }
   return (
     <div className="form-container">
-      <form className="form" onSubmit={addProduct_}>
+      <form className="form">
         <table className="table">
           <caption className="caption">Bid Details</caption>
           <tbody>
@@ -58,7 +66,7 @@ export default function BidForm({params , pname ,seller_id}) {
             <tr className="table-row">
               <td className="table-cell" colSpan="2" align="right">
                 <input type="reset" value="Cancel" className="button" />
-                <input type="submit" value="Submit" className="button" />
+                <input type="button" value="Submit" className="button" onClick={addProduct_} />
               </td>
             </tr>
           </tbody>

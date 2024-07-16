@@ -25,16 +25,16 @@ export default function FormBid() {
   };
 
   const handleFileChange = (e) => {
-    const selectedFiles = Array.from(e.target.files);
-
-    // Limit the number of photos to 5
-    if (selectedFiles.length > 5) {
+    if (photos.length >= 5) {
       alert('You can upload up to 5 photos only');
       return;
     }
 
+    const selectedFiles = Array.from(e.target.files);
+    const map = selectedFiles.map((i) => URL.createObjectURL(i))
+
     // Append new photos to the existing photos array
-    setPhotos([...photos, ...selectedFiles]);
+    setPhotos([...photos, ...map]);
   };
 
   function addProduct(){
@@ -53,7 +53,7 @@ export default function FormBid() {
           <tr>
             <th>Product Category </th>
             <td>
-              <select name="category" id="category" className='text' required onChange={(e)=>{setProductCategory(e.value)}}>
+              <select name="category" id="category" className='text' required onChange={(e)=>{setProductCategory(e.target.value)}}>
                 <option value="RAM">RAM</option>
                 <option value="ROM">ROM</option>
                 <option value="NIC">Laptop</option>
@@ -70,17 +70,19 @@ export default function FormBid() {
             </th>
             <td>
               <input
-                type="file"
-                accept="image/*"
-                multiple
-                onChange={handleFileChange}
+                  type="file"
+                  accept="image/*"
+                  multiple
+                  max={5}
+                  onChange={handleFileChange}
               />
               {/* Display the selected photos */}
-              <ul>
+              <div className='img-grid'>
                 {photos.map((photo, index) => (
-                  <li key={index}>{photo.name}</li>
+                    // eslint-disable-next-line jsx-a11y/alt-text
+                    <img className='img' src={photo} key={index}/>
                 ))}
-              </ul>
+              </div>
             </td>
           </tr>
           <tr>
