@@ -29,16 +29,17 @@ export default function Seller() {
   }, [seller.id]);
 
   return (
-    <div className='bg'>
-      <div>
-        <Link to='/seller-bid'>
-          <input type="button" name="addProduct" value="Add Product" className='add'/>
-        </Link> 
-        <input type="button" name="requestReport" value="Request Report" className='report'/>
-      </div>
+      <div className='bg'>
+        <div className='btn-group'>
+          <Link to='/seller-bid'>
+            <input type="button" name="addProduct" value="Add Product" className='btn'/>
+          </Link>
+          <input type="button" name="requestReport" value="Request Report" className="btn"/>
+        </div>
 
-      <div>
-        <table className='frm'>
+        <div>
+          <h5>Details of Added products</h5>
+          <table className='table'>
           {products.length !== 0 && (
             <thead>
               <tr>
