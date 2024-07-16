@@ -20,5 +20,17 @@
     margin-right: 5px;
     margin-left: 5px;
     justify-content: space-around;
-    
+    flex-wrap: wrap;
+
+}
+
+.product{
+    display: flex;
+    flex-direction: column;
+    background: #b0ddd9;
+    z-index: 1;
+    max-width: 24%;
+    padding: 20px;
+    justify-content: flex-end;
+    margin: 5px;
 }
