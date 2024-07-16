@@ -5,16 +5,17 @@ import axios from 'axios'
 
 export default function Seller() {
   const [products, setProducts] = useState([]);
-  const [seller, setSeller] = useState({ id: null });
+  // const [seller, setSeller] = useState({ id: null });
+  const [seller, setSeller] = useState({ id:1  });
 
   useEffect(() => {
     // Fetch seller details
-    axios.get("http://localhost:3002/api/seller/details")
-      .then((res) => {
-        setSeller(res.data);
-      }).catch((err) => {
-        alert(err);
-      });
+    // axios.get("http://localhost:3002/api/seller/details")
+    //   .then((res) => {
+    //     setSeller(res.data);
+    //   }).catch((err) => {
+    //     alert(err);
+    //   });
 
     // Fetch products when seller ID is available
     if (seller.id) {
@@ -56,7 +57,7 @@ export default function Seller() {
                 <td>{product.name}</td>
                 <td>00{product.product_id}</td>
                 <td>{product.amount}</td>
-                <td>{product.status}</td>
+                <td>{product.admin_status}</td>
               </tr>
             ))}
             {products.length === 0 && (
