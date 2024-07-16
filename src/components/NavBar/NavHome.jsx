@@ -22,6 +22,8 @@ function NavHome() {
           <li><a href='#'>contact us</a></li>
           <input type={"search"} placeholder={"Search on budget pos"}></input> {/* Display a search input */}
         </ul>
+
+        {/* Login & Register Buttons */}
         
         <button type='button'>Request Demo</button> {/* Display "Request Demo" button */}
         <p style={{color:"white" }}>sign in <span>register</span></p> {/* Display a "sign in/register" text */}
