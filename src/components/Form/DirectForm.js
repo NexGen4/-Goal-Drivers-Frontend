@@ -26,7 +26,7 @@ export default function DirectForm({params , pname, image_blobs}) {
     }).then((res)=>{
       console.log(res.data)
       alert(res.data)
-      
+
     }).catch((err)=>{
       alert(err)
     })

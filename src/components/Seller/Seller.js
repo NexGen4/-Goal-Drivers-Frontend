@@ -7,6 +7,8 @@ export default function Seller() {
   const [products, setProducts] = useState([]);
   // const [seller, setSeller] = useState({ id: null });
   const [seller, setSeller] = useState({ id:1  });
+  const [product, setProduct] = useState({ id:1  });
+  const [userEmail, setUserEmail] = useState('');
 
   useEffect(() => {
     // Fetch seller details
@@ -28,13 +30,28 @@ export default function Seller() {
     }
   }, [seller.id]);
 
+  const handleSendEmail=()=>{
+      axios.get(`http://localhost:3002/api/admin/get_user/${seller.id}`)
+          .then((res) => {
+              setUserEmail(res.data.email);
+              axios.get(`http://localhost:3002/api/seller/get_report/${product.id}/${res.data[0].email}`)
+                  .then((res) => {
+                      console.log(res.data)
+                  }).catch((err) => {
+                  alert(err);
+              });
+          }).catch((err) => {
+          alert(err);
+      });
+  }
+
   return (
       <div className='bg'>
         <div className='btn-group'>
           <Link to='/seller-bid'>
             <input type="button" name="addProduct" value="Add Product" className='btn'/>
           </Link>
-          <input type="button" name="requestReport" value="Request Report" className="btn"/>
+          <input type="button" name="requestReport" value="Request Report" className="btn" onClick={handleSendEmail}/>
         </div>
 
         <div>
