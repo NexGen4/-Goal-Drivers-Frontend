@@ -44,6 +44,7 @@ export default function Seller() {
               axios.get(`http://localhost:3002/api/seller/get_report/${product.id}/${res.data[0].email}`)
                   .then((res) => {
                       console.log(res.data)
+                      alert(res.data)
                   }).catch((err) => {
                   alert(err);
               });
