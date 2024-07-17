@@ -9,6 +9,7 @@ export default function Seller() {
   const [seller, setSeller] = useState({ id:1  });
   const [product, setProduct] = useState({ id:1  });
   const [userEmail, setUserEmail] = useState('');
+  const [type, setType] = useState('bid');
 
   useEffect(() => {
     // Fetch seller details
@@ -21,14 +22,20 @@ export default function Seller() {
 
     // Fetch products when seller ID is available
     if (seller.id) {
-      axios.get(`http://localhost:3002/api/seller/get_products/${seller.id}`)
+      axios.get(`http://localhost:3002/api/seller/get_products/${type}/${seller.id}`)
         .then((res) => {
           setProducts(res.data);
         }).catch((err) => {
           alert(err);
         });
     }
-  }, [seller.id]);
+  }, [seller.id,type]);
+
+    const handleChange = () => {
+        var selectElement = document.getElementById("type");
+        var selectedValue = selectElement.value;
+        setType(selectedValue);
+    };
 
   const handleSendEmail=()=>{
       axios.get(`http://localhost:3002/api/admin/get_user/${seller.id}`)
@@ -56,6 +63,12 @@ export default function Seller() {
 
         <div>
           <h5>Details of Added products</h5>
+
+            <select id="type" onChange={handleChange}>
+                <option value="bid">Bid Sell Products</option>
+                <option value="selling">Direct Sell Products</option>
+            </select>
+
           <table className='table'>
           {products.length !== 0 && (
             <thead>
