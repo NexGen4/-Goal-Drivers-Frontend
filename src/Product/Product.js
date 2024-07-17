@@ -9,7 +9,7 @@ import ReactStars from "react-rating-stars-component";
 import { render } from "react-dom";
 import axios from "axios";
 
-function Product({ id, title, image, price, rating }) {
+function Product({ id, title, price, rating, image }) {
     // Ensure rating is between 0 and 5
     const validRating = Math.max(0, Math.min(rating, 5));
     const emptyStars = 5 - validRating;

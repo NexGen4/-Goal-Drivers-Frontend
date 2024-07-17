@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./ProductInfo.css";
 import NavHome from "../components/NavBar/NavHome";
 import Footer from "../components/Footer/Footer";
 import { AiFillStar, AiOutlineStar } from "react-icons/ai";
+import { Link, useParams } from 'react-router-dom';
+import axios from "axios";
 
 const ProductInfo = () => {
     const [product, setProduct] = useState({
@@ -12,6 +14,8 @@ const ProductInfo = () => {
         rate: 1,
     });
 
+    const {id} = useParams()
+
     // Ensure rating is between 0 and 5
     const validRating = Math.max(0, Math.min(product.rate, 5));
     const emptyStars = 5 - validRating;
@@ -19,16 +23,24 @@ const ProductInfo = () => {
     const [qty, setQty] = useState(1);
 
     //APIto fetch product details
-    // useEffect(()=>{
-    //     axios.get("http://localhost:3002/api/seller/get_products/"+seller.id,{
+    useEffect(()=>{
+        /*axios.get("http://localhost:3002/api/seller/get_products/"+seller.id,{
 
-    //     }).then((res)=>{
-    //         console.log(res.data)
-    //         setProduct(res.data)
-    //     }).catch((err)=>{
-    //         alert(err)
-    //     })
-    // },[])
+        }).then((res)=>{
+            console.log(res.data)
+            setProduct(res.data)
+        }).catch((err)=>{
+            alert(err)
+        })*/
+
+        axios.get("http://localhost:3002/api/buyer/get_product/"+id,{
+        }).then((res)=>{
+            console.log(res.data)
+            setProduct(res.data)
+        }).catch((err)=>{
+            alert(err)
+        })
+    },[])
 
     const handleIncrement = () => {
         setQty(qty + 1);
@@ -47,7 +59,19 @@ const ProductInfo = () => {
     };
 
     const handleAddToCart = () => {
-
+       console.log(product)
+       console.log(qty)
+        axios.post("http://localhost:3002/api/buyer/add_to_cart",{
+            product_ids:[product.product_id],
+            buyer_id:2,
+            seller_id:product.seller_id,
+            quantity:qty,
+        }).then((res)=>{
+            console.log(res.data)
+            alert(res.data)
+        }).catch((err)=>{
+            alert(err)
+        })
     };
 
     return (
@@ -92,7 +116,7 @@ const ProductInfo = () => {
                                 </div>
                             </div>
                             <div className="flex center">
-                                <button className="buyBtn" onClick={handleBuyNow}>Buy Now</button>
+                                <button className="buyBtn" onClick={handleBuyNow}>Buy Noww</button>
                                 <button className="addBtn" onClick={handleAddToCart}> Add to Cart</button>
                             </div>
                         </div>

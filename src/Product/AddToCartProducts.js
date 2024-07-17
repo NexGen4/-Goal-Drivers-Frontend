@@ -11,14 +11,17 @@ const AddToCartProducts = ({ match }) => {
   const [product , setProduct] = useState({})
   const {productId} = 1;
 
-  const{id} = useParams()
+  const {id} = useParams()
   const buyer = {
     id:3,
     email:"medirider2023@gmail.com"
 }
 
 useEffect(()=>{
-    alert(id)
+    // alert(id)
+    console.log("id: ",id)
+    console.log(match)
+
     axios.get("http://localhost:3002/api/buyer/get_product/"+id,{
     }).then((res)=>{
         console.log(res.data)
@@ -29,7 +32,7 @@ useEffect(()=>{
 },[])
 
   function addToCart(){
-    alert(id)
+    // alert(id)
     axios.post("http://localhost:3002/api/buyer/add_to_cart",{
             "product_ids":[id.id],
             "buyer_id":buyer.id
