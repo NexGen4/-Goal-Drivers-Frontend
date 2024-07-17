@@ -1,0 +1,63 @@
+.flex-center{
+    display: flex;
+    justify-content: center;
+}
+
+.card{
+    display: flex;
+    min-width: 60vw;
+    min-height: 60vh;
+    margin: 30px 0;
+    padding: 20px;
+}
+
+.img{
+    margin: 20px 30px;
+    height: 355px;
+    width: 450px;
+}
+
+.flex{
+    margin: 20px 0;
+    display: flex;
+}
+
+.column{
+    flex-direction: column;
+}
+
+.center{
+    align-items: center;
+}
+
+h3{
+    color: #6062CE;
+}
+
+button{
+    border-radius: 0;
+    margin: 10px;
+}
+
+.qtyBtn{
+    width: 50px;
+    background-color: grey;
+}
+
+.buyBtn{
+    background-color: #00BEFF;
+    color: black;
+}
+
+.addBtn{
+    background-color: #00EEEE;
+    color: black;
+}
+
+p{
+    margin-bottom: 0;
+}
+
+.rating{
+    margin: 20px;
+}

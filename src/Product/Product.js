@@ -21,13 +21,13 @@ function Product({ id, title, image, price, rating }) {
     const ratingChanged = (newRating) => {
         console.log(newRating);
 
-        axios.get("http://localhost:3002/api/seller/get_products/"+product.id+"/"+newRating,{
-        }).then((res)=>{
-            console.log(res.data)
-            setProducts(res.data)
-        }).catch((err)=>{
-            alert(err)
-        })
+        // axios.get("http://localhost:3002/api/seller/get_products/"+product.id+"/"+newRating,{
+        // }).then((res)=>{
+        //     console.log(res.data)
+        //     setProducts(res.data)
+        // }).catch((err)=>{
+        //     alert(err)
+        // })
     };
 
     return (

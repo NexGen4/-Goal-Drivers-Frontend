@@ -18,6 +18,8 @@ import Report from './Report/Client/Report';
 import MembershipNotification from "./Membership/MembershipNotification";
 import SamplePaymentPage from "./Product/SamplePaymentPage";
 import AboutPage from "../src/About/About";
+import ProductInfo from "./Product/ProductInfo";
+
 
 
 const App = () => {
@@ -41,6 +43,7 @@ const App = () => {
                 <Route path="membershipNotification" element={<MembershipNotification />} />
                 <Route path="samplePayment" element={<SamplePaymentPage />} />
                 <Route path="aboutus" element={<AboutPage />} />
+                <Route path="productDetail/:id" element={<ProductInfo />} />
             </Routes>
         </BrowserRouter>
     );
