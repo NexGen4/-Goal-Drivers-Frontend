@@ -44,6 +44,7 @@ const App = () => {
                 <Route path="samplePayment" element={<SamplePaymentPage />} />
                 <Route path="aboutus" element={<AboutPage />} />
                 <Route path="productDetail/:id" element={<ProductInfo />} />
+                <Route path="confirm-order/:id/:qty" element={<OrderConfirm />} />
             </Routes>
         </BrowserRouter>
     );

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import {useNavigate} from 'react-router-dom'
 import "./ProductInfo.css";
 import NavHome from "../components/NavBar/NavHome";
 import Footer from "../components/Footer/Footer";
@@ -11,6 +12,8 @@ const ProductInfo = () => {
         price: 1233,
         rate: 1,
     });
+
+    const navigate = useNavigate();
 
     // Ensure rating is between 0 and 5
     const validRating = Math.max(0, Math.min(product.rate, 5));
@@ -42,12 +45,8 @@ const ProductInfo = () => {
         }
     };
 
-    const handleBuyNow = () => {
-
-    };
-
-    const handleAddToCart = () => {
-
+    const handleOnClick = () => {
+        navigate(`/confirm-order/${product.product_id}/${qty}`);
     };
 
     return (
@@ -92,8 +91,8 @@ const ProductInfo = () => {
                                 </div>
                             </div>
                             <div className="flex center">
-                                <button className="buyBtn" onClick={handleBuyNow}>Buy Now</button>
-                                <button className="addBtn" onClick={handleAddToCart}> Add to Cart</button>
+                                <button className="buyBtn" onClick={handleOnClick}>Buy Now</button>
+                                <button className="addBtn" onClick={handleOnClick}> Add to Cart</button>
                             </div>
                         </div>
                     </div>

@@ -2,3 +2,53 @@
     background: #b0ddd9;
 }
 
+.flex-center{
+    display: flex;
+    justify-content: center;
+}
+
+.card{
+    display: flex;
+    min-width: 60vw;
+    min-height: 60vh;
+    margin: 30px 0px;
+    padding: 20px;
+}
+
+.img{
+    margin: 20px 30px;
+    height: 355px;
+    width: 450px;
+}
+
+.flex{
+    display: flex;
+}
+
+.column{
+    flex-direction: column;
+}
+
+.center{
+    align-items: center;
+}
+
+button{
+    border-radius: 0;
+    margin-right: 10px;
+}
+
+.confirmBtn{
+    background-color: #00BEFF;
+    color: black;
+}
+
+.cancelBtn{
+    background-color: #00EEEE;
+    color: black;
+}
+
+p{
+    margin-bottom: 0;
+    margin-right: 30px;
+}

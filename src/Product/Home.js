@@ -30,15 +30,15 @@ function Home() {
             <div className='home_pinfo'>
                 {products.length!=0 ? products.map((product , index)=>(
                     <>
-                    {product.image.split(', ').map((url, index) => (
+                    {/*{product.image.split(', ').map((url, index) => (*/}
                             <Product
                                 id={product.product_id}
                                 title={product.name}
                                 price={product.price}
                                 rating={product.rate}
-                                image={url}
+                                image={product.image.split(', ')[0]}
                             />
-                        ))}
+                         {/*))}*/}
                         </>
                 )) : <h6>No product found</h6>}
                 
