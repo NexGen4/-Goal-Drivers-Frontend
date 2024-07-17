@@ -3,7 +3,7 @@ import "./ProductInfo.css";
 import NavHome from "../components/NavBar/NavHome";
 import Footer from "../components/Footer/Footer";
 import { AiFillStar, AiOutlineStar } from "react-icons/ai";
-import { Link, useParams } from 'react-router-dom';
+import { Link, useParams,useNavigate } from 'react-router-dom';
 import axios from "axios";
 
 const ProductInfo = () => {
@@ -62,13 +62,13 @@ const ProductInfo = () => {
     };
 
     const getRate = () => {
-        axios.put("http://localhost:3002/api/buyer/rate/"+product.product_id,{
-        }).then((res)=>{
+        axios.put("http://localhost:3002/api/buyer/rate/" + product.product_id, {}).then((res) => {
             setRate(res.data.rating)
             alert(res.data)
-        }).catch((err)=>{
+        }).catch((err) => {
             alert(err)
         })
+    }
     const handleAddToCart = () => {
        console.log(product)
        console.log(qty)
@@ -131,6 +131,7 @@ const ProductInfo = () => {
                                 <button className="addBtn" onClick={handleOnClick}> Add to Cart</button>
                             </div>
                         </div>
+
                     </div>
                 </div>
             </div>

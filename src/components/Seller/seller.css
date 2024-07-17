@@ -1,5 +1,18 @@
 .bg{
     background-color: white;
+    margin: 20px 30px;
+}
+
+.table{
+    max-width: 700px;
+    min-width: 500px;
+    padding: 50px 25px;
+    background-color: #D0FFEE;
+    margin-top: 50px;
+}
+
+.table, th, td {
+    border: 1px solid black;
 }
 
 .frm{
@@ -16,20 +29,24 @@
 
 }
 
+.frm table, th, td{
+    border: 1px solid transparent;
+}
+
 .text{
     -webkit-transition: all 0.30s ease-in-out;
-	-moz-transition: all 0.30s ease-in-out;
-	-ms-transition: all 0.30s ease-in-out;
-	-o-transition: all 0.30s ease-in-out;
-	outline: none;
-	box-sizing: border-box;
-	-webkit-box-sizing: border-box;
-	-moz-box-sizing: border-box;
-	width: 100%;
-	background: #fff;
-	margin-bottom: 4%;
-	border: 1px solid #ccc;
-	padding: 3%;
+    -moz-transition: all 0.30s ease-in-out;
+    -ms-transition: all 0.30s ease-in-out;
+    -o-transition: all 0.30s ease-in-out;
+    outline: none;
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    width: 100%;
+    background: #fff;
+    margin-bottom: 4%;
+    border: 1px solid #ccc;
+    padding: 3%;
 }
 
 .text1{
@@ -49,4 +66,24 @@
     letter-spacing: 0.01em;
     position: relative;
 
+}
+
+.btn{
+    width:30vh;
+    height: 10vh;
+    border-radius: 0;
+    background-color: #3AAAC2;
+    margin: 20px 0;
+}
+
+.btn:nth-child(1){
+    margin-right: 30px;
+}
+
+h5{
+    margin: 30px 0;
+}
+
+.tbl_row{
+    border-bottom: 1px solid black;
 }
