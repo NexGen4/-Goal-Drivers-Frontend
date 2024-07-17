@@ -9,16 +9,18 @@ export default function CustomerBid() {
     const [bid, setBid] = useState(0);
     const [seller, setSeller] = useState({});
     const [productsState, setProductsState] = useState(true);
-    const [buyer, setBuyer] = useState({ id: null });
-  
+    // const [buyer, setBuyer] = useState({ id: null });
+    const [buyer, setBuyer] = useState({ id: 2 });
+    const [photoUrls, setPhotoUrls] = useState([]);
+
     useEffect(() => {
-      // Fetch buyer details
-      axios.get("http://localhost:3002/api/buyer/details")
+      // Fetch buyer details - no API found
+      /*axios.get("http://localhost:3002/api/buyer/details")
         .then((res) => {
           setBuyer(res.data);
         }).catch((err) => {
           alert(err);
-        });
+        });*/
   
       // Fetch bid products
       axios.get("http://localhost:3002/api/buyer/get_products")
@@ -38,13 +40,20 @@ export default function CustomerBid() {
         bid: bid
       }).then((res) => {
         alert(res.data);
-        window.location.reload();
+        // window.location.reload();
       }).catch((err) => {
         alert(err);
       });
     }
   
-    async function onClick(index, id) {
+    async function hideSeller(index, id) {
+        const bidProducts_ = [...bidProducts];
+        bidProducts_.forEach(product => product.view = true);
+        bidProducts_[index].view = false;
+        setBidProducts(bidProducts_);
+    }
+
+    async function showSeller(index, id) {
       setProductsState(false);
       const bidProducts_ = [...bidProducts];
       bidProducts_.forEach(product => product.view = false);
@@ -58,9 +67,25 @@ export default function CustomerBid() {
         });
   
       setBidProducts(bidProducts_);
-      setTimeout(() => {
-        setProductsState(true);
-      }, 1000);
+      setProductsState(true);
+
+      // setTimeout(() => {
+      //   setProductsState(true);
+      // }, 1000);
+    }
+
+    async function convertBlobToBase64(blobUrl) {
+        const response = await fetch(blobUrl);
+        const blob = await response.blob();
+
+        return new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                resolve(reader.result);
+            };
+            reader.onerror = reject;
+            reader.readAsDataURL(blob);
+        });
     }
   
     return (
@@ -68,81 +93,104 @@ export default function CustomerBid() {
         <NavHome />
         <div className='bg'>
           <div>
-            {bidProducts.length !== 0 && productsState && bidProducts.map((product, index) => (
-              <div className='bg' key={index}>
-                <table className='frm'>
-                  <tbody>
-                    <tr>
-                      <td>
-                        <h3>Bid Details</h3>
-                        <p> Base Value  :  Rs.{product.base_price}</p>
-                      </td>
-                      <td rowSpan={5}>
-                        <h3>Product Details</h3>
-                        <table>
-                          <tbody>
-                            <tr>
-                              <td>
-                                <p>{product.product.name}</p>
-                              </td>
+            {bidProducts.length !== 0 && productsState && bidProducts.map((product, index) => {
+                // console.log(product)
+                let photoUrls = product.product.image.split(', ').map(url => url.replace('blob:', ''));
+
+
+                let blobUrls = product.product.image.split(', ').map(url => url.trim());
+                console.log(typeof blobUrls)
+                console.log(blobUrls)
+                // setPhotoUrls(blobUrls);
+                    blobUrls.map(url => console.log(url))
+
+                return(
+                  <div className='bg' key={index}>
+                    <table className='frm'>
+                      <tbody>
+                        <tr>
+                          <td>
+                            <h3>Bid Details</h3>
+                            <p> Base Value  :  Rs.{product.base_price}</p>
+                          </td>
+                          <td rowSpan={5}>
+                            <h3>Product Details</h3>
+                            <table>
+                              <tbody>
+                                <tr>
+                                  <td>
+                                    <p>{product.product.name}</p>
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td><img src={lap} alt="Product" /></td>
+                                </tr>
+                    {photoUrls.map((photo, index) => {
+                        console.log(index)
+                        console.log(photo)
+
+                        return(
+                            <tr key={index}>
+                                <td><img src={photo} alt={`Product ${index}`} style={{ width: '100px', height: '100px' }} /></td>
                             </tr>
+                        )
+                    })}
+                              </tbody>
+                            </table>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <h3>Count Down</h3>
+                            <h4>End At</h4>
+                            <p>{product.end_time}</p>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <h3>Place Your Bid Here</h3>
+                            <input type="number" className='text' value={bid} onChange={(e) => setBid(e.target.value)} />
+                            <input type="button" name="submit" value="Submit" className='submit' onClick={() => addBid(product.product.product_id)} />
+                          </td>
+                        </tr>
+                        <tr></tr>
+                        <tr></tr>
+                        <tr></tr>
+                        {product.view ? (
+                            <>
+                          <tr>
+                            <td>
+                              <h3>Seller's Details</h3>
+                              <table>
+                                <tbody>
+                                  <tr>
+                                    <td>Name</td>
+                                    <td>:{seller.firstname} {seller.lastname}</td>
+                                  </tr>
+                                  <tr>
+                                    <td>Email</td>
+                                    <td>{seller.email}</td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                            </td>
+                          </tr>
                             <tr>
-                              <td><img src={lap} alt="Product" /></td>
+                            <td></td>
+                            <td><button onClick={() => hideSeller(index, product.product.seller_id)}>Hide Seller Details</button></td>
                             </tr>
-                          </tbody>
-                        </table>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <h3>Count Down</h3>
-                        <h4>End At</h4>
-                        <p>{product.end_time}</p>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <h3>Place Your Bid Here</h3>
-                        <input type="number" className='text' value={bid} onChange={(e) => setBid(e.target.value)} />
-                        <input type="submit" name="submit" value="Submit" className='submit' onClick={() => addBid(product.product.product_id)} />
-                      </td>
-                    </tr>
-                    {product.view ? (
-                      <tr>
-                        <td>
-                          <h3>Seller's Details</h3>
-                          <table>
-                            <tbody>
-                              <tr>
-                                <td>Name</td>
-                                <td>:{seller.firstname} {seller.lastname}</td>
-                              </tr>
-                              <tr>
-                                <td>Address</td>
-                                <td>: {seller.address}</td>
-                              </tr>
-                              <tr>
-                                <td>Contact</td>
-                                <td>: {seller.contact}</td>
-                              </tr>
-                              <tr>
-                                <td>Email</td>
-                                <td>{seller.email}</td>
-                              </tr>
-                            </tbody>
-                          </table>
-                        </td>
-                      </tr>
-                    ) : (
-                      <tr>
-                        <td></td>
-                        <td><button onClick={() => onClick(index, product.product.seller_id)}>Show Seller</button></td>
-                      </tr>
-                    )}
-                  </tbody>
-                </table>
-              </div>
-            ))}
+                        </>
+                        ) : (
+                          <tr>
+                            <td></td>
+                            <td><button onClick={() => showSeller(index, product.product.seller_id)}>Show Seller Details</button></td>
+                          </tr>
+                        )}
+                      </tbody>
+                    </table>
+                  </div>
+                )
+            })}
           </div>
         </div>
       </>
