@@ -68,7 +68,7 @@ export default function SellerBid() {
                   <td>
                     <h3>Product Details</h3>
                     <table>
-                      <tbody>
+                      <tbody>S
                         <tr>
                           <td><p className='text'>Product name</p></td>
                           <td><p className='text'>{product.product.name}</p></td>

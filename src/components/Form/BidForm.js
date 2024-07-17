@@ -10,6 +10,10 @@ export default function BidForm({params , pname ,seller_id, image_blobs}) {
     console.log("seller_id: ", seller_id)
     console.log("image_blobs: ", "'"+image_blobs+"'")
 
+    const seller = {
+      id : 1
+    }
+
     // Join the URLs into a single string
     const joinedUrls = image_blobs.join(', ');
     console.log(joinedUrls);
@@ -20,13 +24,14 @@ export default function BidForm({params , pname ,seller_id, image_blobs}) {
           description:params,
           amount:1,
           // seller_id:seller_id,
-          seller_id:1,
+          seller_id:seller.id,
           base_price:baseValue,
           duration:bidTime,
           image:JSON.stringify(joinedUrls),
       }).then((res)=>{
         console.log(res.data)
         alert(res.data)
+
       }).catch((err)=>{
         alert(err)
       })
