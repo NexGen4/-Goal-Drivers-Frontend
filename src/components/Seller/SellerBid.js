@@ -9,20 +9,22 @@ export default function SellerBid() {
   const [bids, setBids] = useState([]);
   const [bidView, setBidView] = useState([]);
   const [productsState, setProductState] = useState(true);
-  const [seller, setSeller] = useState({ id: null });
+  // const [seller, setSeller] = useState({ id: null });
+  const [seller, setSeller] = useState({ id: 1 });
 
   useEffect(() => {
     // Fetch seller details
-    axios.get("http://localhost:3002/api/seller/details")
-      .then((res) => {
-        setSeller(res.data);
-      }).catch((err) => {
-        alert(err);
-      });
+    // axios.get("http://localhost:3002/api/seller/details")
+    //   .then((res) => {
+    //     setSeller(res.data);
+    //   }).catch((err) => {
+    //     alert(err);
+    //   });
 
     // Fetch bid products
     axios.get(`http://localhost:3002/api/seller/get_bid_products/${seller.id}`)
       .then((res) => {
+
         const updatedProducts = res.data.map(product => ({
           ...product,
           view: false
@@ -33,16 +35,17 @@ export default function SellerBid() {
       });
   }, [seller.id]);
 
-  async function onClick(index, productId) {
+  async function handleShowBid(index, productId) {
     setProductState(false);
-    const updatedProducts = bidProducts.map((product, i) => ({
-      ...product,
-      view: i === index
-    }));
-    setBidProducts(updatedProducts);
+    // const updatedProducts = bidProducts.map((product, i) => ({
+    //   ...product,
+    //   view: i === index
+    // }));
+    // setBidProducts(updatedProducts);
 
     await axios.get(`http://localhost:3002/api/seller/get_bids/${productId}`)
       .then((res) => {
+          console.log(res.data)
         setBids(res.data);
       }).catch((err) => {
         alert(err);
@@ -108,7 +111,7 @@ export default function SellerBid() {
                       </table>
                     </td>
                   ) : (
-                    <td><button onClick={() => onClick(index, product.product.product_id)}>Show Bids</button></td>
+                    <td><button type='button' onClick={() => handleShowBid(index, product.product.product_id)}>Show Bids</button></td>
                   )}
                 </tr>
                 <tr>

@@ -59,7 +59,7 @@ export default function FormBid() {
           <tr>
             <th>Product Category </th>
             <td>
-              <select name="category" id="category" className='text' required onChange={(e)=>{setProductCategory(e.value)}}>
+              <select name="category" id="category" className='text' required onChange={(e)=>{setProductCategory(e.target.value)}}>
                 <option value="RAM">RAM</option>
                 <option value="ROM">ROM</option>
                 <option value="NIC">Laptop</option>
@@ -76,17 +76,17 @@ export default function FormBid() {
             </th>
             <td>
               <input
-                type="file"
-                accept="image/*"
-                multiple
-                max={5}
-                onChange={handleFileChange}
+                  type="file"
+                  accept="image/*"
+                  multiple
+                  max={5}
+                  onChange={handleFileChange}
               />
               {/* Display the selected photos */}
               <div className='img-grid'>
                 {photos.map((photo, index) => (
-                  // eslint-disable-next-line jsx-a11y/alt-text
-                  <img className='img' src={photo} key={index}/>
+                    // eslint-disable-next-line jsx-a11y/alt-text
+                    <img className='img' src={photo} key={index}/>
                 ))}
               </div>
             </td>

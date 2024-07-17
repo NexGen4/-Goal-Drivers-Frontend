@@ -5,16 +5,17 @@ import axios from 'axios'
 
 export default function Seller() {
   const [products, setProducts] = useState([]);
-  const [seller, setSeller] = useState({ id: null });
+  // const [seller, setSeller] = useState({ id: null });
+  const [seller, setSeller] = useState({ id:1  });
 
   useEffect(() => {
     // Fetch seller details
-    axios.get("http://localhost:3002/api/seller/details")
-      .then((res) => {
-        setSeller(res.data);
-      }).catch((err) => {
-        alert(err);
-      });
+    // axios.get("http://localhost:3002/api/seller/details")
+    //   .then((res) => {
+    //     setSeller(res.data);
+    //   }).catch((err) => {
+    //     alert(err);
+    //   });
 
     // Fetch products when seller ID is available
     if (seller.id) {
@@ -28,16 +29,17 @@ export default function Seller() {
   }, [seller.id]);
 
   return (
-    <div className='bg'>
-      <div>
-        <Link to='/seller-bid'>
-          <input type="button" name="addProduct" value="Add Product" className='add'/>
-        </Link> 
-        <input type="button" name="requestReport" value="Request Report" className='report'/>
-      </div>
+      <div className='bg'>
+        <div className='btn-group'>
+          <Link to='/seller-bid'>
+            <input type="button" name="addProduct" value="Add Product" className='btn'/>
+          </Link>
+          <input type="button" name="requestReport" value="Request Report" className="btn"/>
+        </div>
 
-      <div>
-        <table className='frm'>
+        <div>
+          <h5>Details of Added products</h5>
+          <table className='table'>
           {products.length !== 0 && (
             <thead>
               <tr>
@@ -56,7 +58,7 @@ export default function Seller() {
                 <td>{product.name}</td>
                 <td>00{product.product_id}</td>
                 <td>{product.amount}</td>
-                <td>{product.status}</td>
+                <td>{product.admin_status}</td>
               </tr>
             ))}
             {products.length === 0 && (
