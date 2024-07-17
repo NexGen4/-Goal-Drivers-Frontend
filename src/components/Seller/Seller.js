@@ -13,12 +13,12 @@ export default function Seller() {
       }
     useEffect(()=>{
         axios.get("http://localhost:3002/api/seller/get_products/"+seller.id,{
-    }).then((res)=>{
-      console.log(res.data)
-      setProducts(res.data)  
-    }).catch((err)=>{
-      alert(err)
-    })
+            }).then((res)=>{
+              console.log(res.data)
+              setProducts(res.data)
+            }).catch((err)=>{
+              alert(err)
+            })
     },[])
 
   return (

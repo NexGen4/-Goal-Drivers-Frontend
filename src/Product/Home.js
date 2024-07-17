@@ -28,15 +28,19 @@ function Home() {
       <img className="home_picture" src={heading} alt="Home picture" />
 
             <div className='home_pinfo'>
-                {products.length!=0&&products.map((product , index)=>(
-                    <Product
-                    id={product.product_id}
-                    title={product.name}
-                    price={product.price}
-                    rating={product.rate}
-                    image="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQlMgiB5nidJ058pK8fBf7ySD6XhvQ5-S7nVQ&usqp=CAU"
-                />
-                ))}
+                {products.length!=0 ? products.map((product , index)=>(
+                    <>
+                    {product.image.split(', ').map((url, index) => (
+                            <Product
+                                id={product.product_id}
+                                title={product.name}
+                                price={product.price}
+                                rating={product.rate}
+                                image={url}
+                            />
+                        ))}
+                        </>
+                )) : <h6>No product found</h6>}
                 
                 
             </div>
