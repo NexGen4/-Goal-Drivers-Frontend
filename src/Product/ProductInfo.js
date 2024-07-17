@@ -4,6 +4,7 @@ import "./ProductInfo.css";
 import NavHome from "../components/NavBar/NavHome";
 import Footer from "../components/Footer/Footer";
 import { AiFillStar, AiOutlineStar } from "react-icons/ai";
+import axios from "axios";
 
 const ProductInfo = () => {
     const [product, setProduct] = useState({
@@ -20,6 +21,7 @@ const ProductInfo = () => {
     const emptyStars = 5 - validRating;
 
     const [qty, setQty] = useState(1);
+    const [rate, setRate] = useState(0);
 
     //APIto fetch product details
     // useEffect(()=>{
@@ -47,6 +49,16 @@ const ProductInfo = () => {
 
     const handleOnClick = () => {
         navigate(`/confirm-order/${product.product_id}/${qty}`);
+    };
+
+    const getRate = () => {
+        axios.put("http://localhost:3002/api/buyer/rate/"+product.product_id,{
+        }).then((res)=>{
+            setRate(res.data.rating)
+            alert(res.data)
+        }).catch((err)=>{
+            alert(err)
+        })
     };
 
     return (
