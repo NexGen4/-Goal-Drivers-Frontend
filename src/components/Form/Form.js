@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import './Form.css'
 import './Button/Button.css'
 import BidForm from './BidForm'
@@ -25,16 +25,22 @@ export default function FormBid() {
   };
 
   const handleFileChange = (e) => {
-    const selectedFiles = Array.from(e.target.files);
-
-    // Limit the number of photos to 5
-    if (selectedFiles.length > 5) {
+    if (photos.length >= 5) {
       alert('You can upload up to 5 photos only');
       return;
     }
 
+    const selectedFiles = Array.from(e.target.files);
+    const map = selectedFiles.map((i) => URL.createObjectURL(i))
+
+    // // Append new photos to the existing photos array
+    // setPhotos([...photos, ...map]);
+    setPhotos([...map]);
+
     // Append new photos to the existing photos array
-    setPhotos([...photos, ...selectedFiles]);
+    // setPhotos((prevPhotos) => [...prevPhotos, ...map]);
+
+    console.log("map: ", map) // contains the blobs
   };
 
   function addProduct(){
@@ -73,14 +79,16 @@ export default function FormBid() {
                 type="file"
                 accept="image/*"
                 multiple
+                max={5}
                 onChange={handleFileChange}
               />
               {/* Display the selected photos */}
-              <ul>
+              <div className='img-grid'>
                 {photos.map((photo, index) => (
-                  <li key={index}>{photo.name}</li>
+                  // eslint-disable-next-line jsx-a11y/alt-text
+                  <img className='img' src={photo} key={index}/>
                 ))}
-              </ul>
+              </div>
             </td>
           </tr>
           <tr>
@@ -108,14 +116,14 @@ export default function FormBid() {
           {showBidForm && (
             <tr>
               <td colSpan={2}>
-                <BidForm params={productDescription} pname={productName}/>
+                <BidForm params={productDescription} pname={productName} seller_id={1} image_blobs={photos}/>
               </td>
             </tr>
           )}
           {showDirectForm && (
             <tr>
               <td colSpan={2}>
-                <DirectForm params={productDescription} pname={productName}/>
+                <DirectForm params={productDescription} pname={productName} image_blobs={photos}/>
               </td>
             </tr>
           )}

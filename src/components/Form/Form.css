@@ -78,4 +78,15 @@
     background-color: green;
     color: white;
   }
+
+  .img{
+    width:100px;
+    height:100px;
+    margin:5px;
+  }
+
+  .img-grid{
+   display:'flex';
+   margin:15px 0px;
+  }
   

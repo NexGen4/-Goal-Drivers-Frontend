@@ -1,21 +1,28 @@
 import axios from 'axios';
 import React, {useState} from 'react'
 
-export default function DirectForm({params , pname}) {
+export default function DirectForm({params , pname, image_blobs}) {
   const[unitPrice, setUnitPrice] = useState(0);
   const[quantity, setQuantity] = useState(0);
 
   const seller = {
-    id : 2
+    id : 1
   }
 
   function addProduct_(){
+
+    // Join the URLs into a single string
+    const joinedUrls = image_blobs.join(', ');
+    console.log(joinedUrls);
+    console.log(JSON.stringify(joinedUrls));
+
     axios.post("http://localhost:3002/api/seller/add_selling_product",{
         name:pname,
         description:params,
         amount:quantity,
         seller_id:seller.id,
-        price:unitPrice
+        price:unitPrice,
+        image:JSON.stringify(joinedUrls),
     }).then((res)=>{
       console.log(res.data)
       alert(res.data)
@@ -44,7 +51,7 @@ export default function DirectForm({params , pname}) {
             <td></td>
             <td>
               <input type="reset" name="Cancel" value="Cancel" className='cancel'/>
-              <input type="submit" name="Submit" value="Submit" className='submit' onClick={addProduct_}/>
+              <input type="button" name="Submit" value="Submit" className='submit' onClick={addProduct_}/>
             </td>
           </tr>
         </table>
