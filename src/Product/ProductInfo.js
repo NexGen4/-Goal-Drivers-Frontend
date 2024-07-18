@@ -86,7 +86,16 @@ const ProductInfo = () => {
     };
 
     const handleOnClick = () => {
-        navigate(`/confirm-order/${product.product_id}/${qty}`);
+        axios.post("http://localhost:3002/api/buyer/add_to_cart",{
+            product_id:product.product_id,
+            buyer_id:buyer,
+            qty:qty
+        }).then((res)=>{
+            alert(res.data)
+            navigate(`/confirm-order/${product.product_id}/${qty}`);
+        }).catch((err)=>{
+            alert(err)
+        })
     };
 
     const handleBuyProduct=(text,id,total)=>{
