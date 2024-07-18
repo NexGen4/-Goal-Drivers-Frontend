@@ -7,6 +7,7 @@ import { Link, useParams,useNavigate } from 'react-router-dom';
 import axios from "axios";
 
 const ProductInfo = () => {
+    const [buyer, setBuyer]=useState(2)
     const [product, setProduct] = useState({
         product_id: 1,
         name: " HP DeskJet 2722 All-in-One Printer with Wireless Printing",
@@ -14,7 +15,7 @@ const ProductInfo = () => {
         rate: 1,
     });
 
-    const {id} = useParams()
+    const params = useParams()
 
     const navigate = useNavigate();
 
@@ -28,11 +29,17 @@ const ProductInfo = () => {
 
     //APIto fetch product details
     useEffect(()=>{
-        /*axios.get("http://localhost:3002/api/seller/get_products/"+seller.id,{
 
+        axios.get("http://localhost:3002/api/buyer/get_product/"+params.id,{
         }).then((res)=>{
             console.log(res.data)
             setProduct(res.data)
+            axios.get("http://localhost:3002/api/buyer/rate/"+params.id,{}).then((res)=>{
+                    console.log(res.data.rating)
+                    setRate(res.data.rating)
+                }).catch((err)=>{
+                    alert(err)
+                })
         }).catch((err)=>{
             alert(err)
         })*/
@@ -82,20 +89,41 @@ const ProductInfo = () => {
         navigate(`/confirm-order/${product.product_id}/${qty}`);
     };
 
-    const getRate = () => {
-        axios.put("http://localhost:3002/api/buyer/rate/" + product.product_id, {}).then((res) => {
-            setRate(res.data.rating)
+    const handleBuyProduct=(text,id,total)=>{
+        console.log(id)
+        axios.get("http://localhost:3002/api/seller/notify/" +id+"/"+ text, {}).then((res) => {
+            console.log(res.data)
             alert(res.data)
+
+            let membership = '';
+            let discount = 0;
+
+            if (total >= 100000) {
+                membership = "platinum";
+                discount = 20;
+            } else if (total >= 50000) {
+                membership = "gold";
+                discount = 15;
+            } else if (total >= 10000) {
+                membership = "silver";
+                discount = 10;
+            }
+
+            if (membership && discount) {
+                alert(`Congratulations! You have received ${membership} Membership and ${discount}% discount for your order. Thank you.`);
+            }
         }).catch((err) => {
             alert(err)
         })
     }
+
+
     const handleAddToCart = () => {
        console.log(product)
        console.log(qty)
         axios.post("http://localhost:3002/api/buyer/add_to_cart",{
             product_ids:[product.product_id],
-            buyer_id:2,
+            buyer_id:buyer,
             seller_id:product.seller_id,
             quantity:qty,
         }).then((res)=>{
@@ -128,14 +156,15 @@ const ProductInfo = () => {
                         })}
                         <div className="flex column">
                             <h6>{product.name}</h6>
-                            <div className="rating">
-                                {Array.from({ length: validRating }, (_, i) => (
+                            <div style={{marginBottom:5}}>
+
+                                {Array.from({ length: rate }, (_, i) => (
                                     <AiFillStar
                                         key={`filled-${i}`}
                                         style={{ height: "2rem", width: "2rem", color: "yellow" }}
                                     />
                                 ))}
-                                {Array.from({ length: emptyStars }, (_, i) => (
+                                {Array.from({ length: 5 - rate }, (_, i) => (
                                     <AiOutlineStar
                                         key={`outline-${i}`}
                                         style={{ height: "2rem", width: "2rem" }}
@@ -156,7 +185,7 @@ const ProductInfo = () => {
                                 </div>
                             </div>
                             <div className="flex center">
-                                <button className="buyBtn" onClick={handleOnClick}>Buy Now</button>
+                                <button className="buyBtn" onClick={()=>{handleBuyProduct("A buyer has purchased Product id : "+product.product_id,product.product_id,product.price*qty)}}>Buy Now</button>
                                 <button className="addBtn" onClick={handleOnClick}> Add to Cart</button>
                             </div>
                         </div>

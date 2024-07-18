@@ -63,7 +63,7 @@ export default function Feedback() {
          
             <FaStar size={40} className={`rating-star ${isClickedStar1 ? 'clicked' : ''}`} onClick={()=>setIsClickedStar1(!isClickedStar1)}/> 
             <FaStar size={40} className={`rating-star ${isClickedStar2 ? 'clicked' : ''}`} onClick={()=>setIsClickedStar2(!isClickedStar2)}/> 
-            <FaStar size={40} className={`rating-star ${isClickedStar3 ? 'clicked' : ''}`}onClick={()=>setIsClickedStar3(!isClickedStar3)}/> 
+            <FaStar size={40} className={`rating-star ${isClickedStar3 ? 'clicked' : ''}`} onClick={()=>setIsClickedStar3(!isClickedStar3)}/>
             <FaStar size={40} className={`rating-star ${isClickedStar4 ? 'clicked' : ''}`} onClick={()=>setIsClickedStar4(!isClickedStar4)}/> 
             <FaStar size={40} className={`rating-star ${isClickedStar5 ? 'clicked' : ''}`} onClick={()=>setIsClickedStar5(!isClickedStar5)}/>
             {/* <p>Did you find what you were wants?</p>

@@ -57,7 +57,7 @@ const ProductDetails = () => {
                                 <th scope="col">#</th>
                                 <th scope="col">Name</th>
                                 <th scope="col">Type</th>
-                                <th scope="col">Discription</th>
+                                <th scope="col">Description</th>
                                 <th scope="co1">Amount</th>
                                 <th scope="co1"></th>
                                 
