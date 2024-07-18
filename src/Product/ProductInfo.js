@@ -5,7 +5,6 @@ import Footer from "../components/Footer/Footer";
 import { AiFillStar, AiOutlineStar } from "react-icons/ai";
 import { Link, useParams,useNavigate } from 'react-router-dom';
 import axios from "axios";
-import ReactStars from "react-rating-stars-component";
 
 const ProductInfo = () => {
     const [buyer, setBuyer]=useState(2)

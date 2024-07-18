@@ -5,8 +5,6 @@ import './Product.css';
 import { Link,useNavigate } from 'react-router-dom';
 import { AiFillStar, AiOutlineStar } from "react-icons/ai";
 
-import ReactStars from "react-rating-stars-component";
-import { render } from "react-dom";
 import axios from "axios";
 
 function Product({ id, title, price, rating, image , type}) {
