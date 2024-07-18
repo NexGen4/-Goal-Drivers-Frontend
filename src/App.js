@@ -23,7 +23,7 @@ const App = () => {
                 <Route path="/seller" element={<Seller/>}/>
                 <Route path="/seller-bid" element={<SellerBid/>}/>
                 <Route path="/customer-bid" element={<CustomerBid/>}/>
-                <Route path="/confirm-order" element={<ConfirmOrder/>}/>
+                <Route path="/confirm-order/:id" element={<ConfirmOrder/>}/>
                 <Route path="/feedback" element={<Feedback/>}/>
                 <Route path="/notification" element={<NotificationSystem/>}/>
             </Routes>

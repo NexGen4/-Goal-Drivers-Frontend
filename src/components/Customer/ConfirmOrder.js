@@ -1,13 +1,60 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import './Customer.css'
+
 import NavHome from '../NavBar/NavHome'
-import Foot from '../Footer/Foot'
+import Footer from '../Footer/Footer'
+import { useParams } from 'react-router-dom';
+import axios from "axios";
 
 export default function ConfirmOrder() {
-  return (<>
-   <NavHome/>
-    <div className='bg'>
-        <div style={{display:'flex', justifyContent:'space-around'}}>
+
+    const params = useParams();
+
+    const [bidProduct , setBidProducts] = useState('');
+    const [bid , setBid] = useState('');
+
+    useEffect(()=>{
+        console.log(params.id)
+
+        axios.get("http://localhost:3002/api/seller/get_bid_product/" + params.id, {}).then((res) => {
+            console.log(res.data[0])
+
+            setBidProducts(res.data[0])
+
+            axios.get("http://localhost:3002/api/seller/get_bid/" + res.data[0].winner_id, {}).then((res) => {
+                console.log(res.data[0])
+
+                setBid(res.data[0])
+            }).catch((err) => {
+                alert(err)
+            })
+        }).catch((err) => {
+            alert(err)
+        })
+    },[])
+
+    const handleSendNotification=(text,id)=>{
+        console.log(id)
+        axios.get("http://localhost:3002/api/seller/notify/" +id+"/"+ text, {}).then((res) => {
+            console.log(res.data)
+            alert(res.data)
+        }).catch((err) => {
+            alert(err)
+        })
+    }
+
+    const formatDate = (timestamp) => {
+        const date = new Date(timestamp);
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const day = String(date.getDate()).padStart(2, '0');
+        return `${year}-${month}-${day}`;
+    };
+
+    return (<>
+            <NavHome/>
+            <div className='bg'>
+                <div style={{display:'flex', justifyContent:'space-around'}}>
 
                     <table style={{backgroundColor:'#EDFFF8', borderRadius:'8px', margin:'2rem'}}>
                         <tr>
@@ -17,17 +64,17 @@ export default function ConfirmOrder() {
                         </tr>
                         <tr>
                             <td className='text'>
-                                name of the product
+                                Product Name : {bidProduct.name}
                             </td>
                         </tr>
                         <tr>
                             <td className='text'>
-                                photo
+                                <img src={bidProduct.image} alt="product image" style={{width:100, height:100}}/>
                             </td>
                         </tr>
                         <tr>
                             <td>
-                            <input type="button" name="viewmore" value="View More >>" className='view'/>
+                                <input type="button" name="viewmore" value="View More >>" className='view'/>
                             </td>
                         </tr>
                     </table>
@@ -38,55 +85,55 @@ export default function ConfirmOrder() {
                                 <h3>Confirm your order</h3>
                             </td>
                         </tr>
-                            <tr>
-                                <td>
-                                    <p className='text'>Product Name </p>
-                                </td>
-                                <td>
-                                    <p className='text'>Laptop</p>
-                                </td>
-                            </tr>
+                        <tr>
+                            <td>
+                                <p className='text'>Product Name </p>
+                            </td>
+                            <td>
+                                <p className='text'>{bidProduct.name}</p>
+                            </td>
+                        </tr>
 
-                            <tr>
-                                <td>
-                                    <p className='text'>Bidded Date</p>
-                                </td>
-                                <td>
-                                    <p className='text'>22 / 01 / 2022</p>
-                                </td>
-                            </tr>
+                        <tr>
+                            <td>
+                                <p className='text'>Bidded Date</p>
+                            </td>
+                            <td>
+                                <p className='text'>{formatDate(bidProduct.date)}</p>
+                            </td>
+                        </tr>
 
-                            <tr>
-                                <td>
-                                    <p className='text'>Base Value (LKR)</p>
-                                </td>
-                                <td>
-                                    <p className='text'>Rs.6 000.00</p>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <p className='text'>You Bidded Price (LKR)</p>
-                                </td>
-                                <td>
-                                    <p className='text'>Rs.6 500.00</p>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td colSpan={2}>
-                                    <input type="cancel" name="cancel" value="Cancel Order" className='no'/>
-                                    <input type="submit" name="confirm" value="Confirm Order" className='yes'/>     
-                                </td>
-                            </tr>
-                        </table>
-                    
+                        <tr>
+                            <td>
+                                <p className='text'>Base Value (LKR)</p>
+                            </td>
+                            <td>
+                                <p className='text'>Rs.{bidProduct.base_price}</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <p className='text'>You Bidded Price (LKR)</p>
+                            </td>
+                            <td>
+                                <p className='text'>Rs.{bid.bid}</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colSpan={2}>
+                                <input type="cancel" name="cancel" value="Cancel Order" className='no' onClick={()=>{handleSendNotification("Customer cancel the order",bidProduct.product_id)}}/>
+                                <input type="submit" name="confirm" value="Confirm Order" className='yes' onClick={()=>{handleSendNotification("Customer confirm the order",bidProduct.product_id)}}/>
+                            </td>
+                        </tr>
+                    </table>
+
                 </div><br/><br/>
-                <br/>             
-                   
-       
-           
-        <Foot/>
-    </div>
-    </>
-  )
+                <br/>
+
+
+
+                <Footer/>
+            </div>
+        </>
+    )
 }
