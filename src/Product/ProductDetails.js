@@ -13,7 +13,7 @@ const ProductDetails = () => {
         axios.get("http://localhost:3002/api/seller/get_products/"+seller.id,{
 
         }).then((res)=>{
-            console.log(res.data)
+
             setProducts(res.data)
         }).catch((err)=>{
             alert(err)
@@ -24,7 +24,7 @@ const ProductDetails = () => {
         axios.get(`http://localhost:3002/api/seller/get_report/${id}/${seller.email}`,{
 
         }).then((res)=>{
-            console.log(res.data)
+
             alert(res.data)
             window.location.reload()
         }).catch((err)=>{

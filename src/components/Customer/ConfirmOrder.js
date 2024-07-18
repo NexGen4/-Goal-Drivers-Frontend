@@ -14,15 +14,12 @@ export default function ConfirmOrder() {
     const [bid , setBid] = useState('');
 
     useEffect(()=>{
-        console.log(params.id)
 
         axios.get("http://localhost:3002/api/seller/get_bid_product/" + params.id, {}).then((res) => {
-            console.log(res.data[0])
 
             setBidProducts(res.data[0])
 
             axios.get("http://localhost:3002/api/seller/get_bid/" + res.data[0].winner_id, {}).then((res) => {
-                console.log(res.data[0])
 
                 setBid(res.data[0])
             }).catch((err) => {
@@ -34,9 +31,7 @@ export default function ConfirmOrder() {
     },[])
 
     const handleSendNotification=(text,id)=>{
-        console.log(id)
         axios.get("http://localhost:3002/api/seller/notify/" +id+"/"+ text, {}).then((res) => {
-            console.log(res.data)
             alert(res.data)
         }).catch((err) => {
             alert(err)

@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import './Customer.css';
-import lap from './Laptop.png';
 import NavHome from '../NavBar/NavHome';
 import axios from 'axios';
 import {useParams} from 'react-router-dom'
@@ -10,25 +9,14 @@ export default function CustomerBid() {
     const [bid, setBid] = useState(0);
     const [seller, setSeller] = useState({});
     const [productsState, setProductsState] = useState(false);
-    // const [buyer, setBuyer] = useState({ id: null });
     const [buyer, setBuyer] = useState({ id: 2 });
-    const [photoUrls, setPhotoUrls] = useState([]);
 
     const params = useParams();
 
     useEffect(() => {
-        // Fetch buyer details - no API found
-        /*axios.get("http://localhost:3002/api/buyer/details")
-          .then((res) => {
-            setBuyer(res.data);
-          }).catch((err) => {
-            alert(err);
-          });*/
-
         // Fetch bid products
         axios.get("http://localhost:3002/api/buyer/get_product/"+params.id,{
         }).then((res)=>{
-            console.log(res.data)
             setBidProducts(res.data)
         }).catch((err)=>{
             alert(err)
@@ -42,41 +30,28 @@ export default function CustomerBid() {
             bid: bid
         }).then((res) => {
             alert(res.data);
-            // window.location.reload();
         }).catch((err) => {
             alert(err);
         });
     }
 
     async function hideSeller(index, id) {
-        // const bidProducts_ = [...bidProducts];
-        // bidProducts_.forEach(product => product.view = true);
-        // bidProducts_[index].view = false;
-        // setBidProducts(bidProducts_);
         setProductsState(false)
     }
 
     async function showSeller(id) {
         setProductsState(true);
 
-        console.log(id)
-        // const bidProducts_ = [...bidProducts];
-        // bidProducts_.forEach(product => product.view = false);
-        // bidProducts_[index].view = true;
-
         await axios.get(`http://localhost:3002/api/buyer/get_seller/${id}`)
             .then((res) => {
-                console.log(res.data[0])
                 setSeller(res.data[0]);
             }).catch((err) => {
                 alert(err);
             });
 
-        // setBidProducts(bidProducts_);
         setProductsState(true);
 
     }
-
 
     return (
         <>

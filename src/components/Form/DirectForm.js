@@ -24,7 +24,6 @@ export default function DirectForm({params , pname, files}) {
         axios.post("http://localhost:3002/api/seller/add_selling_product",formData,
 
         ).then((res)=>{
-            console.log(res.data)
             alert(res.data)
 
         }).catch((err)=>{

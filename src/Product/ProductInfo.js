@@ -32,10 +32,10 @@ const ProductInfo = () => {
 
         axios.get("http://localhost:3002/api/buyer/get_product/"+params.id,{
         }).then((res)=>{
-            console.log(res.data)
+
             setProduct(res.data)
             axios.get("http://localhost:3002/api/buyer/rate/"+params.id,{}).then((res)=>{
-                    console.log(res.data.rating)
+
                     setRate(res.data.rating)
                 }).catch((err)=>{
                     alert(err)
@@ -46,28 +46,17 @@ const ProductInfo = () => {
 
         axios.get("http://localhost:3002/api/buyer/get_product/"+params.id,{
         }).then((res)=>{
-            console.log(res.data)
+
             setProduct(res.data)
 
             let imgArr = res.data.image.split(', ');
-            console.log((imgArr))
-            setImagesArr(imgArr)
 
-            // var a = new FileReader();
-            // // a.onload = function(e) {callback(e.target.result);}
-            // console.log(imgArr[0].split('blob:')[1])
-            // let img1 = a.readAsDataURL(imgArr[0].split('blob:')[1])
-            // console.log(img1)
+            setImagesArr(imgArr)
 
             var reader = new FileReader();
             reader.readAsDataURL(imgArr[0]);
-            // reader.readAsDataURL(imgArr[0].split('blob:')[1]);
             var base64data = reader.result;
-            console.log(base64data);
-            // reader.onloadend = function() {
-            //     var base64data = reader.result;
-            //     console.log(base64data);
-            // }
+
         }).catch((err)=>{
             console.error(err)
         })
@@ -99,9 +88,9 @@ const ProductInfo = () => {
     };
 
     const handleBuyProduct=(text,id,total)=>{
-        console.log(id)
+
         axios.get("http://localhost:3002/api/seller/notify/" +id+"/"+ text, {}).then((res) => {
-            console.log(res.data)
+
             alert(res.data)
 
             let membership = '';
@@ -127,22 +116,6 @@ const ProductInfo = () => {
     }
 
 
-    const handleAddToCart = () => {
-       console.log(product)
-       console.log(qty)
-        axios.post("http://localhost:3002/api/buyer/add_to_cart",{
-            product_ids:[product.product_id],
-            buyer_id:buyer,
-            seller_id:product.seller_id,
-            quantity:qty,
-        }).then((res)=>{
-            console.log(res.data)
-            alert(res.data)
-        }).catch((err)=>{
-            alert(err)
-        })
-    };
-
     return (
         <>
             <NavHome />
@@ -152,12 +125,8 @@ const ProductInfo = () => {
                     <div className="flex">
                         {imagesArr.map((image, index)=>{
 
-                            console.log(image, index)
                             return (<img
-                                // src="https://picsum.photos/200/300"
                                 src={image}
-                                // key={index}
-                                // src={URL.createObjectURL(image)}
                                 alt="product_image"
                                 className="img"
                                 height="60"

@@ -7,17 +7,10 @@ export default function BidForm({params , pname ,seller_id, files}) {
     const[bidTime, setBidTime] = useState(0);
 
     function addProduct_(){
-        console.log("seller_id: ", seller_id)
-        console.log("files: ", "'"+files+"'")
 
         const seller = {
             id : 1
         }
-
-        // Join the URLs into a single string
-        const joinedUrls = files.join(', ');
-        console.log(joinedUrls);
-        console.log(JSON.stringify(joinedUrls));
 
         const formData = new FormData();
         Array.from(files).forEach(file => {
@@ -30,39 +23,11 @@ export default function BidForm({params , pname ,seller_id, files}) {
         formData.append("seller_id", seller.id);
         formData.append("base_price", baseValue);
         formData.append("duration", bidTime);
-        // formData.append("image", JSON.stringify(joinedUrls));
-
-
-        /*for (var pair of formData.entries()) {
-            console.log(pair[0]+ ', ' + pair[1].toString());
-        }*/
-
-        for (const key of formData.keys()) {
-            console.log(key);
-        }
-
-        for (const value of formData.values()) {
-            console.log(value);
-        }
 
         axios.post(
             "http://localhost:3002/api/seller/add_bid_product",
             formData,
-            /*{
-                headers: {
-                    "Content-Type": "multipart/form-data",
-                }},*/
-            /*{
-                name:pname,
-                description:params,
-                amount:1,
-                // seller_id:seller_id,
-                seller_id:seller.id,
-                base_price:baseValue,
-                duration:bidTime,
-                image:JSON.stringify(joinedUrls),
-        }*/).then((res)=>{
-            console.log(res.data)
+        ).then((res)=>{
             alert(res.data)
 
         }).catch((err)=>{
@@ -70,11 +35,6 @@ export default function BidForm({params , pname ,seller_id, files}) {
         })
     }
 
-    function check_(){
-        alert("hello")
-        console.log(pname)
-        console.log(params)
-    }
     return (
         <div className="form-container">
             <form className="form" >

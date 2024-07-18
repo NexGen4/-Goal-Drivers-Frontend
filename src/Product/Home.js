@@ -11,7 +11,6 @@ function Home() {
 
     const params = useParams();
     const [products , setProducts] = useState([])
-    // const [type , setType] = useState([])
 
     useEffect(()=>{
 

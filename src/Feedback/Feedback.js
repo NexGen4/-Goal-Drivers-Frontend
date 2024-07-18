@@ -41,7 +41,7 @@ export default function Feedback() {
 
         axios.put("http://localhost:3002/api/buyer/rate/"+rate+"/"+product.id,{
         }).then((res)=>{
-            // alert(res.data)
+
             axios.post("http://localhost:3002/api/buyer/addFeedback",{
                 product_id:product.id,
                 comment:feedback,
@@ -69,9 +69,7 @@ export default function Feedback() {
                 <FaStar size={40} className={`rating-star ${isClickedStar3 ? 'clicked' : ''}`} onClick={()=>setIsClickedStar3(!isClickedStar3)}/>
                 <FaStar size={40} className={`rating-star ${isClickedStar4 ? 'clicked' : ''}`} onClick={()=>setIsClickedStar4(!isClickedStar4)}/>
                 <FaStar size={40} className={`rating-star ${isClickedStar5 ? 'clicked' : ''}`} onClick={()=>setIsClickedStar5(!isClickedStar5)}/>
-                {/* <p>Did you find what you were wants?</p>
-            <input type={'radio'} name="yes" value="Yes"/> Yes
-            <input type={'radio'} name="no"value="no"/> No */}
+
                 <br/>
                 <textarea value={feedback} onChange={e=>setFeedback(e.target.value)} style={{minWidth:'20rem'}}></textarea>
                 <br/>

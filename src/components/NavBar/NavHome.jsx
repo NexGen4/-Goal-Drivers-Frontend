@@ -1,13 +1,8 @@
 import React, {useEffect, useState} from 'react';
-import {useNavigate} from 'react-router-dom'
 import './NavHome.css';
 import { FaHome } from "react-icons/fa"; // import the home icon from react-icons/fa
 import bduget  from "../../assets/images/bduget pos.jpg"; // import the company logo image
-import doneb from "../../assets/images/doneb.png"
 import { Link } from 'react-router-dom';
-import Home from "../../Product/Home";
-import Home1 from "../../components/Home/Home";
-import {type} from "@testing-library/user-event/dist/type";
 
 
 function NavHome() {
@@ -32,23 +27,7 @@ function NavHome() {
         <p style={{color:"white" }}>sign in <span>register</span></p> {/* Display a "sign in/register" text */}
         <p style={{color:"white"}} className='hfar'><FaHome/></p> {/* Display the home icon */}
       </nav>
-     
-      {/* <br/>
 
-      <center>
-        <div className='popup'>
-          <img className='huu' src={doneb} alt='wada karapn ' style={{height:"50px"}} ></img>  
-          <h2>Thank You !!</h2>
-          <p>Your details has been successfully submited.You can get your good at your place.Thanks!</p>
-          <button type='button'>Ok</button>
-        </div> 
-      </center>
-
-      <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>  */}
-
-      {/* <div>
-        <Footerr/> 
-      </div> */}
     </div>
   );
 }

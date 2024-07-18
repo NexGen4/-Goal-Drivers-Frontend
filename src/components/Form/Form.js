@@ -11,7 +11,6 @@ export default function FormBid() {
   const [photos, setPhotos] = useState([]);
 
   const [productName, setProductName] = useState("")
-  const [productCategory, setProductCategory] = useState("")
   const [productDescription, setProductDescription] = useState("")
 
   const handleYesClick = () => {
@@ -44,10 +43,6 @@ export default function FormBid() {
       });
       setPhotos([...photos, ...selectedFiles]);
   };
-
-  function addProduct(){
-    alert("hello")
-  }
 
   return (<>
         <NavHome/>

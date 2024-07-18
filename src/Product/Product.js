@@ -21,7 +21,6 @@ function Product({ id, title, price, rating, image , type}) {
         }else {
 
             axios.get("http://localhost:3002/api/seller/notify/" + id + "/" + text, {}).then((res) => {
-                console.log(res.data)
                 alert(res.data)
 
                 let membership = '';

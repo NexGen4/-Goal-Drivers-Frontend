@@ -20,7 +20,6 @@ const OrderConfirm = () => {
     const loadCart=()=>{
         axios.get("http://localhost:3002/api/buyer/get_cart/"+buyer,{
         }).then((res)=>{
-            console.log(res.data)
             setProducts(res.data)
         }).catch((err)=>{
             alert(err)

@@ -5,11 +5,9 @@ import { Link, useParams } from 'react-router-dom';
 import Footer from '../components/Footer/Footer';
 import axios from 'axios';
 
-
 const AddToCartProducts = ({ match }) => {
   const [quantity, setQuantity] = useState(1);
   const [product , setProduct] = useState({})
-  const {productId} = 1;
 
   const {id} = useParams()
   const buyer = {
@@ -18,13 +16,9 @@ const AddToCartProducts = ({ match }) => {
 }
 
 useEffect(()=>{
-    // alert(id)
-    console.log("id: ",id)
-    console.log(match)
 
     axios.get("http://localhost:3002/api/buyer/get_product/"+id,{
     }).then((res)=>{
-        console.log(res.data)
         setProduct(res.data)
     }).catch((err)=>{
         alert(err)
@@ -32,25 +26,16 @@ useEffect(()=>{
 },[])
 
   function addToCart(){
-    // alert(id)
     axios.post("http://localhost:3002/api/buyer/add_to_cart",{
             "product_ids":[id.id],
             "buyer_id":buyer.id
     }).then((res)=>{
-        console.log(res.data)
         alert(res.data)
     }).catch((err)=>{
         alert(err)
     })
 }
-  // Fetch product details based on the productId using an API or data source
-  // const product = {
-  //   id: 1, // Replace with actual product ID
-  //   name: 'Printer', // Replace with actual product name
-  //   price: 10000, // Replace with actual product price
-  //   image: './Pictures/PRINTER.jpeg', // Replace with actual product image URL
-  //   description: 'A printer is a device that produces a hard copy (permanent readable text and/or graphics) of documents stored in electronic form on a computer or other digital device.' // Replace with actual product description
-  // };
+
 
   const handleQuantityChange = (e) => {
     setQuantity(e.target.value);

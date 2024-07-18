@@ -5,7 +5,6 @@ import axios from 'axios'
 
 export default function Seller() {
     const [products, setProducts] = useState([]);
-    // const [seller, setSeller] = useState({ id: null });
     const [seller, setSeller] = useState({ id:1  });
     const [product, setProduct] = useState({ id:1  });
     const [userEmail, setUserEmail] = useState('');
@@ -14,13 +13,6 @@ export default function Seller() {
     const navigate = useNavigate();
 
     useEffect(() => {
-        // Fetch seller details
-        // axios.get("http://localhost:3002/api/seller/details")
-        //   .then((res) => {
-        //     setSeller(res.data);
-        //   }).catch((err) => {
-        //     alert(err);
-        //   });
 
         // Fetch products when seller ID is available
         if (seller.id) {
@@ -45,7 +37,6 @@ export default function Seller() {
                 setUserEmail(res.data.email);
                 axios.get(`http://localhost:3002/api/seller/get_report/${product.id}/${res.data[0].email}`)
                     .then((res) => {
-                        console.log(res.data)
                         alert(res.data)
                     }).catch((err) => {
                     alert(err);
@@ -57,7 +48,6 @@ export default function Seller() {
 
     const handleClickTableRow=(id)=>{
         if (type === 'bid') {
-            console.log(id)
             navigate(`/seller-bid`,{state:{id:id}})
         }
     }
