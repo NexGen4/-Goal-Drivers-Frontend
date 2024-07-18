@@ -30,17 +30,19 @@ export default function FormBid() {
       return;
     }
 
-    const selectedFiles = Array.from(e.target.files);
-    const map = selectedFiles.map((i) => URL.createObjectURL(i))
+      const selectedFiles = Array.from(e.target.files);
 
-    // // Append new photos to the existing photos array
-    // setPhotos([...photos, ...map]);
-    setPhotos([...map]);
-
-    // Append new photos to the existing photos array
-    // setPhotos((prevPhotos) => [...prevPhotos, ...map]);
-
-    console.log("map: ", map) // contains the blobs
+      const container = document.getElementById('imageContainer');
+      selectedFiles.forEach(file => {
+          const reader = new FileReader();
+          reader.onload = function(e) {
+              const img = document.createElement('img');
+              img.src = e.target.result;
+              container.appendChild(img);
+          };
+          reader.readAsDataURL(file);
+      });
+      setPhotos([...photos, ...selectedFiles]);
   };
 
   function addProduct(){
@@ -83,12 +85,7 @@ export default function FormBid() {
                       onChange={handleFileChange}
                   />
                   {/* Display the selected photos */}
-                  <div className='img-grid'>
-                    {photos.map((photo, index) => (
-                        // eslint-disable-next-line jsx-a11y/alt-text
-                        <img className='img' src={photo} key={index} alt=''/>
-                    ))}
-                  </div>
+                    <div id="imageContainer" className='img-grid'></div>
                 </td>
               </tr>
               <tr>
@@ -116,7 +113,7 @@ export default function FormBid() {
               {showBidForm && (
                   <tr>
                     <td colSpan={2}>
-                      <BidForm params={productDescription} pname={productName} seller_id={1} image_blobs={photos}/>
+                      <BidForm params={productDescription} pname={productName} seller_id={1} files={photos}/>
                     </td>
                   </tr>
               )}

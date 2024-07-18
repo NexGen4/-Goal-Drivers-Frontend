@@ -24,6 +24,7 @@ const ProductInfo = () => {
 
     const [qty, setQty] = useState(1);
     const [rate, setRate] = useState(0);
+    const [imagesArr, setImagesArr] = useState( []);
 
     //APIto fetch product details
     useEffect(()=>{
@@ -40,8 +41,28 @@ const ProductInfo = () => {
         }).then((res)=>{
             console.log(res.data)
             setProduct(res.data)
+
+            let imgArr = res.data.image.split(', ');
+            console.log((imgArr))
+            setImagesArr(imgArr)
+
+            // var a = new FileReader();
+            // // a.onload = function(e) {callback(e.target.result);}
+            // console.log(imgArr[0].split('blob:')[1])
+            // let img1 = a.readAsDataURL(imgArr[0].split('blob:')[1])
+            // console.log(img1)
+
+            var reader = new FileReader();
+            reader.readAsDataURL(imgArr[0]);
+            // reader.readAsDataURL(imgArr[0].split('blob:')[1]);
+            var base64data = reader.result;
+            console.log(base64data);
+            // reader.onloadend = function() {
+            //     var base64data = reader.result;
+            //     console.log(base64data);
+            // }
         }).catch((err)=>{
-            alert(err)
+            console.error(err)
         })
     },[])
 
@@ -92,11 +113,19 @@ const ProductInfo = () => {
                 <div className="card">
                     <h5>{product.name}</h5>
                     <div className="flex">
-                        <img
-                            src="https://picsum.photos/200/300"
-                            alt="product_image"
-                            className="img"
-                        />
+                        {imagesArr.map((image, index)=>{
+
+                            console.log(image, index)
+                            return (<img
+                                // src="https://picsum.photos/200/300"
+                                src={image}
+                                // key={index}
+                                // src={URL.createObjectURL(image)}
+                                alt="product_image"
+                                className="img"
+                                height="60"
+                            />)
+                        })}
                         <div className="flex column">
                             <h6>{product.name}</h6>
                             <div className="rating">
