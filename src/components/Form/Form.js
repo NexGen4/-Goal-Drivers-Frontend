@@ -59,17 +59,6 @@ export default function FormBid() {
                 <td> <input type="text" className='text' id="name" required onChange={(e)=>{setProductName(e.target.value)}}/></td>
               </tr>
               <tr>
-                <th>Product Category </th>
-                <td>
-                  <select name="category" id="category" className='text' required onChange={(e)=>{setProductCategory(e.value)}}>
-                    <option value="RAM">RAM</option>
-                    <option value="ROM">ROM</option>
-                    <option value="NIC">Laptop</option>
-                    <option value="Printers">Printers</option>
-                  </select>
-                </td>
-              </tr>
-              <tr>
                 <th>Description </th>
                 <td><textarea className='text' id="description" required onChange={(e)=>{setProductDescription(e.target.value)}}></textarea></td>
               </tr>
