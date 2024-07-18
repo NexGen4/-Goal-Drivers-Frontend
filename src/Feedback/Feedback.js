@@ -13,44 +13,47 @@ export default function Feedback() {
   const[feedback , setFeedback] = useState("")
 
   const product = {
-    id : 8
+    id : 10
   }
 
   const user = {
-    id : 3
+    id : 2
   }
 
-  function addFeedback(){
-    axios.post("http://localhost:3002/api/buyer/addFeedback",{
-      product_id:product.id,
-      comment:feedback,
-      user_id:user.id
-    }).then((res)=>{
-      alert(res.data)
-    }).catch((err)=>{
-      alert(err)
-    })
-  }
+  const submit=()=>{
 
-  function rate(){
-    let rateCount = 0
-     rateCount+= isClickedStar1?1:0
-     rateCount+= isClickedStar2?1:0
-     rateCount+= isClickedStar3?1:0
-     rateCount+= isClickedStar4?1:0
-     rateCount+= isClickedStar5?1:0
-     alert(rateCount)
-    axios.get("http://localhost:3002/api/buyer/rate/4/"+product.id,{
-    }).then((res)=>{
-      if(feedback!=""){
-        addFeedback()
+      let rate = 0
+      if (isClickedStar1) {
+          rate += 1
       }
-      else{
-        alert(res.data)
+      if (isClickedStar2) {
+          rate += 1
       }
-    }).catch((err)=>{
-      alert(err)
-    })
+      if (isClickedStar3) {
+          rate += 1
+      }
+      if (isClickedStar4) {
+          rate += 1
+      }
+      if (isClickedStar5) {
+          rate += 1
+      }
+
+      axios.put("http://localhost:3002/api/buyer/rate/"+rate+"/"+product.id,{
+      }).then((res)=>{
+          // alert(res.data)
+          axios.post("http://localhost:3002/api/buyer/addFeedback",{
+              product_id:product.id,
+              comment:feedback,
+              user_id:user.id
+          }).then((res)=>{
+              alert(res.data)
+          }).catch((err)=>{
+              alert(err)
+          })
+      }).catch((err)=>{
+          alert(err)
+      })
   }
 
   return (
@@ -63,7 +66,7 @@ export default function Feedback() {
          
             <FaStar size={40} className={`rating-star ${isClickedStar1 ? 'clicked' : ''}`} onClick={()=>setIsClickedStar1(!isClickedStar1)}/> 
             <FaStar size={40} className={`rating-star ${isClickedStar2 ? 'clicked' : ''}`} onClick={()=>setIsClickedStar2(!isClickedStar2)}/> 
-            <FaStar size={40} className={`rating-star ${isClickedStar3 ? 'clicked' : ''}`}onClick={()=>setIsClickedStar3(!isClickedStar3)}/> 
+            <FaStar size={40} className={`rating-star ${isClickedStar3 ? 'clicked' : ''}`} onClick={()=>setIsClickedStar3(!isClickedStar3)}/>
             <FaStar size={40} className={`rating-star ${isClickedStar4 ? 'clicked' : ''}`} onClick={()=>setIsClickedStar4(!isClickedStar4)}/> 
             <FaStar size={40} className={`rating-star ${isClickedStar5 ? 'clicked' : ''}`} onClick={()=>setIsClickedStar5(!isClickedStar5)}/>
             {/* <p>Did you find what you were wants?</p>
@@ -72,7 +75,7 @@ export default function Feedback() {
             <br/>
             <textarea value={feedback} onChange={e=>setFeedback(e.target.value)} style={{minWidth:'20rem'}}></textarea>
             <br/>
-            <input type="submit" name="Submit" value="Submit" className='submit' style={{backgroundColor:'#030640', padding:'1rem', minWidth:'8rem'}} onClick={rate}/>
+            <input type="button" name="Submit" value="Submit" className='submit' style={{backgroundColor:'#030640', padding:'1rem', minWidth:'8rem'}} onClick={submit}/>
         </form>
     </div>
   )
