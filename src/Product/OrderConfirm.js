@@ -22,8 +22,32 @@ const OrderConfirm = () => {
         })
     },[])
 
-    const handleConfirm = () => {
-        navigate('/samplePayment')
+    const handleConfirm = (text,id,total) => {
+        axios.get("http://localhost:3002/api/seller/notify/" +id+"/"+ text, {}).then((res) => {
+            console.log(res.data)
+            alert(res.data)
+
+            let membership = '';
+            let discount = 0;
+
+            if (total >= 100000) {
+                membership = "platinum";
+                discount = 20;
+            } else if (total >= 50000) {
+                membership = "gold";
+                discount = 15;
+            } else if (total >= 10000) {
+                membership = "silver";
+                discount = 10;
+            }
+
+            if (membership && discount) {
+                alert(`Congratulations! You have received ${membership} Membership and ${discount}% discount for your order. Thank you.`);
+                navigate('/samplePayment')
+            }
+        }).catch((err) => {
+            alert(err)
+        })
     };
 
     const handleCancel = () => {
@@ -51,7 +75,7 @@ const OrderConfirm = () => {
                             <div className="flex column">
                                 <h5>Total : {product.price * qty}</h5>
                                 <div className="flex center">
-                                    <button className="confirmBtn" onClick={handleConfirm}>
+                                    <button className="confirmBtn" onClick={()=>{handleConfirm("A buyer has purchased Product id : "+product.product_id,product.product_id,product.price*qty)}}>
                                         Confirm
                                     </button>
                                     <button className="cancelBtn" onClick={handleCancel}>
