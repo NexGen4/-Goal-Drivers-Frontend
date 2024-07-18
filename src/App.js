@@ -32,7 +32,7 @@ const App = () => {
                 <Route path="/direct" element={<DirectForm/>}/> 
                 <Route path="/seller" element={<Seller/>}/>
                 <Route path="/seller-bid" element={<SellerBid/>}/>
-                <Route path="/customer-bid" element={<CustomerBid/>}/>
+                <Route path="/customer-bid/:id" element={<CustomerBid/>}/>
                 <Route path="/confirm-order/:id" element={<ConfirmOrder/>}/>
                 <Route path="/feedback" element={<Feedback/>}/>
                 <Route path="confirm-order/:amount" element={<OrderConfirm />} />

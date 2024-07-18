@@ -8,45 +8,45 @@ import { AiFillStar, AiOutlineStar } from "react-icons/ai";
 import axios from "axios";
 
 function Product({ id, title, price, rating, image , type}) {
+    const navigate = useNavigate();
     // Ensure rating is between 0 and 5
     const validRating = Math.max(0, Math.min(rating, 5));
     const emptyStars = 5 - validRating;
 
-    const navigate = useNavigate();
-
-    useEffect(()=>{
-        console.log(type)
-    })
-
 
     const handleBuyProduct=(text,id,total)=>{
-        console.log(id)
 
-        axios.get("http://localhost:3002/api/seller/notify/" +id+"/"+ text, {}).then((res) => {
-            console.log(res.data)
-            alert(res.data)
+        if (type === 'bid'){
+            navigate(`/customer-bid/${id}`)
+        }else {
 
-            let membership = '';
-            let discount = 0;
+            axios.get("http://localhost:3002/api/seller/notify/" + id + "/" + text, {}).then((res) => {
+                console.log(res.data)
+                alert(res.data)
 
-            if (total >= 100000) {
-                membership = "platinum";
-                discount = 20;
-            } else if (total >= 50000) {
-                membership = "gold";
-                discount = 15;
-            } else if (total >= 10000) {
-                membership = "silver";
-                discount = 10;
-            }
+                let membership = '';
+                let discount = 0;
 
-            if (membership && discount) {
-                alert(`Congratulations! You have received ${membership} Membership and ${discount}% discount for your order. Thank you.`);
-            }
+                if (total >= 100000) {
+                    membership = "platinum";
+                    discount = 20;
+                } else if (total >= 50000) {
+                    membership = "gold";
+                    discount = 15;
+                } else if (total >= 10000) {
+                    membership = "silver";
+                    discount = 10;
+                }
 
-        }).catch((err) => {
-            alert(err)
-        })
+                if (membership && discount) {
+                    alert(`Congratulations! You have received ${membership} Membership and ${discount}% discount for your order. Thank you.`);
+                }
+
+
+            }).catch((err) => {
+                alert(err)
+            })
+        }
     }
 
     return (
@@ -76,8 +76,8 @@ function Product({ id, title, price, rating, image , type}) {
                 <img src={image} alt="" style={{ height: '180px', width: '200px',cursor:'pointer' }} />
             </Link>
             <div style={{ display: 'flex', justifyContent: 'space-around', marginTop: '1rem' }}>
-                <Link to={`/productDetail/${id}`}><button className='AddToCart' style={{ width: '8rem', height: '3rem' }}>Add to Cart</button></Link>
-                {type  === 'bid' ? <Link to={''}><button className='BuyNow' style={{ width: '7rem', height: '3rem', borderRadius: '5px' }} onClick={()=>{handleBuyProduct("A buyer has purchased Product id : "+id,id,price*1)}}>Buy Now</button></Link>:''}
+                {type  !== 'bid' ? <Link to={`/productDetail/${id}`}><button className='AddToCart' style={{ width: '8rem', height: '3rem' }}>Add to Cart</button></Link>:''}
+                <button className='BuyNow' style={{ width: '7rem', height: '3rem', borderRadius: '5px' }} onClick={()=>{handleBuyProduct("A buyer has purchased Product id : "+id,id,price*1)}}>Buy Now</button>
             </div>
         </div>
     );

@@ -1,158 +1,166 @@
-import React, { useEffect, useState } from 'react'
-import './Customer.css'
-import lap from './Laptop.png'
-import NavHome from '../NavBar/NavHome'
-import Footer from '../Footer/Footer'
-import axios from 'axios'
+import React, { useEffect, useState } from 'react';
+import './Customer.css';
+import lap from './Laptop.png';
+import NavHome from '../NavBar/NavHome';
+import axios from 'axios';
+import {useParams} from 'react-router-dom'
 
 export default function CustomerBid() {
-    const [bid_products , setBidProduct] = useState([])
-    const [bid , setBid] = useState(0)
-    const [seller , setSeller] = useState({})
-    const [productsState , setProductState] = useState(true)
-    const buyer = {
-        id : 3
-    }
-    useEffect(()=>{
-        axios.get("http://localhost:3002/api/buyer/get_products",{
+    const [bidProducts, setBidProducts] = useState('');
+    const [bid, setBid] = useState(0);
+    const [seller, setSeller] = useState({});
+    const [productsState, setProductsState] = useState(false);
+    // const [buyer, setBuyer] = useState({ id: null });
+    const [buyer, setBuyer] = useState({ id: 2 });
+    const [photoUrls, setPhotoUrls] = useState([]);
 
+    const params = useParams();
+
+    useEffect(() => {
+        // Fetch buyer details - no API found
+        /*axios.get("http://localhost:3002/api/buyer/details")
+          .then((res) => {
+            setBuyer(res.data);
+          }).catch((err) => {
+            alert(err);
+          });*/
+
+        // Fetch bid products
+        axios.get("http://localhost:3002/api/buyer/get_product/"+params.id,{
         }).then((res)=>{
             console.log(res.data)
-            const result = res.data.filter(checkAdult);
-            for(let i=0; i<result.length; i++){
-                result[i].view = false
-              }
-            function checkAdult(product) {
-                return product.product.type==="bid";
-              }
-              console.log(result)
-            setBidProduct(result)
+            setBidProducts(res.data)
         }).catch((err)=>{
             alert(err)
         })
-    },[])
+    }, []);
 
-    function addBid(id){
-        axios.post("http://localhost:3002/api/buyer/add_bid",{
-                buyer_id:buyer.id,
-                product_id:id,
-                bid:bid
-        }).then((res)=>{
-            console.log(res.data)
-            alert(res.data)
-            window.location.reload()
-        }).catch((err)=>{
-            alert(err)
-        })
+    function addBid(id) {
+        axios.post("http://localhost:3002/api/buyer/add_bid", {
+            buyer_id: buyer.id,
+            product_id: id,
+            bid: bid
+        }).then((res) => {
+            alert(res.data);
+            // window.location.reload();
+        }).catch((err) => {
+            alert(err);
+        });
     }
 
-    async function onClick(index , id){
-        setProductState(false)
-        let bidProducts_ = bid_products
-        for(let i=0; i<bidProducts_.length; i++){
-            bidProducts_[i].view = false
-          }
-        bidProducts_[index].view = true
-       await axios.get("http://localhost:3002/api/buyer/get_seller/"+id,{
-    }).then((res)=>{
-      console.log(res.data)
-      setSeller(res.data[0])  
-    }).catch((err)=>{
-      alert(err)
-    })
-    setBidProduct(bidProducts_)
-    setTimeout(function() {
-        setProductState(true)
-      }, 1000);
+    async function hideSeller(index, id) {
+        // const bidProducts_ = [...bidProducts];
+        // bidProducts_.forEach(product => product.view = true);
+        // bidProducts_[index].view = false;
+        // setBidProducts(bidProducts_);
+        setProductsState(false)
     }
 
-  return (<>
-  <NavHome/>
-    <div className='bg'>
-        <div>
-                {bid_products.length!=0&&productsState&&bid_products.map((product , index)=>(
-                    <>
-                    <div className='bg'>
+    async function showSeller(id) {
+        setProductsState(true);
+
+        console.log(id)
+        // const bidProducts_ = [...bidProducts];
+        // bidProducts_.forEach(product => product.view = false);
+        // bidProducts_[index].view = true;
+
+        await axios.get(`http://localhost:3002/api/buyer/get_seller/${id}`)
+            .then((res) => {
+                console.log(res.data[0])
+                setSeller(res.data[0]);
+            }).catch((err) => {
+                alert(err);
+            });
+
+        // setBidProducts(bidProducts_);
+        setProductsState(true);
+
+    }
+
+
+    return (
+        <>
+            <NavHome />
+            <div className='bg'>
+                <div>
+
+                    <div className='bg' >
                                 <table className='frm'>
-                                  <tr>
-                    <td>
-                        <h3>Bid Details</h3>
-                        <p> Base Value  :  Rs.{product.base_price}</p>
-                    </td>
+                                    <tbody>
+                                    <tr>
+                                        <td>
+                                            <h3>Bid Details</h3>
+                                            <p> Base Value  :  Rs.{bidProducts.base_price}</p>
+                                        </td>
+                                        <td rowSpan={5}>
+                                            <h3>Product Details</h3>
+                                            <table>
+                                                <tbody>
+                                                <tr>
+                                                    <td>
+                                                        <p>{bidProducts.name}</p>
+                                                    </td>
+                                                </tr>
+                                                <tr >
+                                                    <td><img src={bidProducts.image} alt={`Product`} style={{ width: '100px', height: '100px' }} /></td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <h3>Count Down</h3>
+                                            <h4>End At</h4>
+                                            <p>{bidProducts.end_time}</p>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <h3>Place Your Bid Here</h3>
+                                            <input type="number" className='text' value={bid} onChange={(e) => setBid(e.target.value)} />
+                                            <input type="button" name="submit" value="Submit" className='submit' onClick={() => addBid(bidProducts.product_id)} />
+                                        </td>
+                                    </tr>
+                                    <tr></tr>
+                                    <tr></tr>
+                                    <tr></tr>
+                                    {productsState ? (
+                                        <>
+                                            <tr>
+                                                <td>
+                                                    <h3>Seller's Details</h3>
+                                                    <table>
+                                                        <tbody>
+                                                        <tr>
+                                                            <td>Name</td>
+                                                            <td>:{seller.firstname} {seller.lastname}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Email</td>
+                                                            <td>{seller.email}</td>
+                                                        </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td></td>
+                                                <td><button onClick={() => hideSeller(bidProducts.seller_id)}>Hide Seller Details</button></td>
+                                            </tr>
+                                        </>
+                                    ) : (
+                                        <tr>
+                                            <td></td>
+                                            <td><button onClick={() => showSeller(bidProducts.seller_id)}>Show Seller Details</button></td>
+                                        </tr>
+                                    )}
+                                    </tbody>
+                                </table>
+                            </div>
 
-                    <td rowSpan={5}>
-                        <h3>Product Details</h3>
-                        <table>
-                            <tr>
-                                
-                                <td>
-                                    <p>{product.product.name}</p>
-                                </td>
-                            </tr>
-                                <td><img src={lap} /></td>
-                                <td></td>
-                            {/* <tr>
-                                <td>This is a Laptop</td>
-                            </tr> */}
-                        </table>
-                    </td>
-                </tr>
-
-                <tr>
-                    <td>
-                        <h3>Count Down</h3>
-                        <h4>End At</h4>
-                        <p>{product.end_time}</p>
-                    </td>
-                </tr>
-
-                <tr>
-                    <td>
-                        <h3>  Place Your Bid Here</h3>
-                        <td> <input type="text" className='text'  value={bid} onChange={(e)=>setBid(e.target.value)}/></td>
-                        <input type="submit" name="submit" value="Submit" className='submit' onClick={()=>{addBid(product.product.product_id)}}/>
-                    </td>
-                </tr>
-                {product.view?<>
-                    <tr>
-                    <td>
-                        <h3>Seller"`"s Details</h3>
-                        <table>
-                            <tr>
-                                <td>Name</td>
-                                <td>:{seller.firstname} {seller.lastname}</td>
-                            </tr>
-
-                            <tr>
-                                <td>Address</td>
-                                <td>: Colombo 05</td>
-                            </tr>
-
-                            <tr>
-                                <td>Contact</td>
-                                <td>: +94 123 456 789</td>
-                            </tr> 
-                            <tr>
-                                <td>email</td>
-                                <td>{seller.email}</td>
-                            </tr>
-                            <tr>
-                                <td>Click Here to View More</td>
-                            </tr> 
-                        </table>    
-                    </td>
-                </tr>
-                </>:<>
-                <td></td>
-                <td><button onClick={()=>onClick(index , product.product.seller_id)}>Show Seller</button></td>
-                </>}
-                </table>
                 </div>
-                    </>
-                ))}
-        </div>
-        <Footer/>
-    </div>
-    </>
-  )
+            </div>
+        </>
+    );
 }
