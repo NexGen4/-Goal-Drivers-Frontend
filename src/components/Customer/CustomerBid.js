@@ -90,7 +90,7 @@ export default function CustomerBid() {
                                     <tr>
                                         <td>
                                             <h3>Bid Details</h3>
-                                            <p> Base Value  :  Rs.{bidProducts.base_price}</p>
+                                            <p> Base Value  :  Rs.{bidProducts.price}</p>
                                         </td>
                                         <td rowSpan={5}>
                                             <h3>Product Details</h3>
