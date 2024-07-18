@@ -4,23 +4,34 @@ import './Home.css'
 import heading from '../Pictures/heading.jpg';
 import NavHome from '../components/NavBar/NavHome';
 import Footer from '../components/Footer/Footer';
-import { Link } from 'react-router-dom';
+import { Link,useParams } from 'react-router-dom';
 import axios from 'axios';
 
 function Home() {
 
+    const params = useParams();
     const [products , setProducts] = useState([])
+    // const [type , setType] = useState([])
 
     useEffect(()=>{
-        axios.get("http://localhost:3002/api/buyer/get_selling_products/",{
 
-        }).then((res)=>{
-            console.log(res.data)
-            setProducts(res.data)
-        }).catch((err)=>{
-            alert(err)
-        })
-    },[])
+        if (params.type === 'selling') {
+            axios.get("http://localhost:3002/api/buyer/get_selling_products/", {}).then((res) => {
+
+                setProducts(res.data)
+            }).catch((err) => {
+                alert(err)
+            })
+
+        }else {
+            axios.get("http://localhost:3002/api/buyer/get_bid_products/", {}).then((res) => {
+
+                setProducts(res.data)
+            }).catch((err) => {
+                alert(err)
+            })
+        }
+    },[params.type])
 
   return (
         <>
@@ -32,13 +43,13 @@ function Home() {
 
                     <div className='home_pinfo'>
                         {products.length!=0 ? products.map((product , index)=> {
-                            console.log(product)
                             return (
                                 <Product
                                     id = {product.product_id}
                                     title = {product.name}
                                     price = {product.price}
                                     rating = {product.rate}
+                                    type={params.type}
                                     image = {product.image.split(', ')[0]}
                                 />
                             )

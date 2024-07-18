@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./OrderConfirm.css";
 import NavHome from "../components/NavBar/NavHome";
 import Footer from "../components/Footer/Footer";
-import { useParams } from "react-router-dom";
+import { useParams,useNavigate } from "react-router-dom";
 
 const OrderConfirm = () => {
     const [product, setProduct] = useState({
@@ -14,6 +14,7 @@ const OrderConfirm = () => {
     });
 
     const {id,qty} = useParams()
+    const navigate= useNavigate()
 
     //APIto fetch product details
     // useEffect(()=>{
@@ -29,15 +30,19 @@ const OrderConfirm = () => {
 
     const handleConfirm = () => {};
 
-    const handleCancel = () => {};
+    const handleCancel = () => {
+        navigate('/')
+    };
 
     return (
         <>
             <NavHome />
             <div className="flex-center">
                 <div className="card">
-                    <div className="flex">
-                        <img src={product.image} alt="product_image" className="img" />
+                    <div style={{display:"flex", justifyContent:"space-evenly"}}>
+                        <div>
+                            <img src={product.image} alt="product_image" style={{width:300, height:300}} />
+                        </div>
                         <div className="flex column">
                             <div className="flex column">
                                 <h6>{product.name}</h6>

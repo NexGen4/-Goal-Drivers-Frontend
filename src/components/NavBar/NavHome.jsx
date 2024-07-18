@@ -1,12 +1,17 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
+import {useNavigate} from 'react-router-dom'
 import './NavHome.css';
 import { FaHome } from "react-icons/fa"; // import the home icon from react-icons/fa
 import bduget  from "../../assets/images/bduget pos.jpg"; // import the company logo image
 import doneb from "../../assets/images/doneb.png"
 import { Link } from 'react-router-dom';
+import Home from "../../Product/Home";
+import Home1 from "../../components/Home/Home";
+import {type} from "@testing-library/user-event/dist/type";
 
 
 function NavHome() {
+
   return (
     <div className='nav-container'> 
       <nav>
@@ -17,7 +22,7 @@ function NavHome() {
           <Link to='/'><li><a href='#'>Home</a></li> </Link>  
           <li><Link to="/aboutus">About us</Link></li>
           <li><a href='#'>services</a></li>
-          <Link to='/product/selling'> <li><a href='#'>Direct Sell</a></li></Link>
+          <Link to='/product/selling'> <li><a href='#' >Direct Sell</a></li></Link>
           <Link to='/product/bid'> <li><a href='#'>Bid products</a></li></Link>
           <li><a href='#'>contact us</a></li>
           <input type={"search"} placeholder={"Search on budget pos"}></input> {/* Display a search input */}

@@ -8,9 +8,10 @@ export default function Home() {
     <div>
       <div><NavHome/></div>
       <div style={{height:'39.65vh'}}>
-        <Link to='/product'><button>Customer</button></Link>
+        <Link to='/product/bid'><button>Customer</button></Link>
         <Link to='/seller'> <button>Seller</button></Link>
-        </div> 
+        </div>
+
       <div><Footer/></div>
     </div>
   );
