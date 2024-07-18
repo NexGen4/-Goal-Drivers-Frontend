@@ -120,7 +120,7 @@ export default function FormBid() {
               {showDirectForm && (
                   <tr>
                     <td colSpan={2}>
-                      <DirectForm params={productDescription} pname={productName} image_blobs={photos}/>
+                      <DirectForm params={productDescription} pname={productName} files={photos}/>
                     </td>
                   </tr>
               )}
