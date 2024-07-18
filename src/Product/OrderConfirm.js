@@ -14,13 +14,6 @@ const OrderConfirm = () => {
 
     //APIto fetch product details
     useEffect(()=>{
-        // axios.get("http://localhost:3002/api/buyer/get_product/"+id,{
-        // }).then((res)=>{
-        //     console.log(res.data)
-        //     setProduct(res.data)
-        // }).catch((err)=>{
-        //     alert(err)
-        // })
         loadCart();
     },[])
 
