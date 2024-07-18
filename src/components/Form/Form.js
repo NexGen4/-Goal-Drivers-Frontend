@@ -9,7 +9,6 @@ export default function FormBid() {
   const [showBidForm, setShowBidForm] = useState(false);
   const [showDirectForm, setShowDirectForm] = useState(false);
   const [photos, setPhotos] = useState([]);
-  const [photosList, setPhotosList] = useState([]);
 
   const [productName, setProductName] = useState("")
   const [productCategory, setProductCategory] = useState("")
@@ -32,20 +31,11 @@ export default function FormBid() {
     }
 
     const selectedFiles = Array.from(e.target.files);
-    console.log(selectedFiles)
     const map = selectedFiles.map((i) => URL.createObjectURL(i))
 
     // // Append new photos to the existing photos array
     // setPhotos([...photos, ...map]);
     setPhotos([...map]);
-
-    if (photos.length >= 5) {
-      alert('You can upload up to 5 photos only');
-      return;
-    }
-
-    const mappedUrls = selectedFiles.map(file => URL.createObjectURL(file));
-    setPhotosList([...photos, ...mappedUrls]);
 
     // Append new photos to the existing photos array
     // setPhotos((prevPhotos) => [...prevPhotos, ...map]);
@@ -82,7 +72,7 @@ export default function FormBid() {
             <td><textarea className='text' id="description" required onChange={(e)=>{setProductDescription(e.target.value)}}></textarea></td>
           </tr>
           <tr>
-            <th>Insert Photos of product 
+            <th>Insert Photos of product
             </th>
             <td>
               <input
@@ -133,11 +123,11 @@ export default function FormBid() {
           {showDirectForm && (
             <tr>
               <td colSpan={2}>
-                <DirectForm params={productDescription} pname={productName} image_blobs={photosList}/>
+                <DirectForm params={productDescription} pname={productName} image_blobs={photos}/>
               </td>
             </tr>
           )}
-          
+
         </table>
       </form>
     </div>

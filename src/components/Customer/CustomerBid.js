@@ -21,19 +21,18 @@ export default function CustomerBid() {
         }).catch((err) => {
           alert(err);
         });*/
-  
+
       // Fetch bid products
       axios.get("http://localhost:3002/api/buyer/get_products")
         .then((res) => {
           const result = res.data.filter(product => product.product.type === "bid");
           result.forEach(product => product.view = false);
-            console.log(result)
           setBidProducts(result);
         }).catch((err) => {
           alert(err);
         });
     }, []);
-  
+
     function addBid(id) {
       axios.post("http://localhost:3002/api/buyer/add_bid", {
         buyer_id: buyer.id,
@@ -46,7 +45,7 @@ export default function CustomerBid() {
         alert(err);
       });
     }
-  
+
     async function hideSeller(index, id) {
         const bidProducts_ = [...bidProducts];
         bidProducts_.forEach(product => product.view = true);
@@ -59,14 +58,14 @@ export default function CustomerBid() {
       const bidProducts_ = [...bidProducts];
       bidProducts_.forEach(product => product.view = false);
       bidProducts_[index].view = true;
-  
+
       await axios.get(`http://localhost:3002/api/buyer/get_seller/${id}`)
         .then((res) => {
           setSeller(res.data[0]);
         }).catch((err) => {
           alert(err);
         });
-  
+
       setBidProducts(bidProducts_);
       setProductsState(true);
 
@@ -88,7 +87,7 @@ export default function CustomerBid() {
             reader.readAsDataURL(blob);
         });
     }
-  
+
     return (
       <>
         <NavHome />
@@ -100,7 +99,8 @@ export default function CustomerBid() {
 
 
                 let blobUrls = product.product.image.split(', ').map(url => url.trim());
-
+                console.log(typeof blobUrls)
+                console.log(blobUrls)
                 // setPhotoUrls(blobUrls);
                     blobUrls.map(url => console.log(url))
 
@@ -126,6 +126,8 @@ export default function CustomerBid() {
                                   <td><img src={lap} alt="Product" /></td>
                                 </tr>
                     {photoUrls.map((photo, index) => {
+                        console.log(index)
+                        console.log(photo)
 
                         return(
                             <tr key={index}>
