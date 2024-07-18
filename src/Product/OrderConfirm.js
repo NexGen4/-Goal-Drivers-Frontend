@@ -23,7 +23,6 @@ const OrderConfirm = () => {
     },[])
 
     const handleConfirm = () => {
-
         navigate('/samplePayment')
     };
 
