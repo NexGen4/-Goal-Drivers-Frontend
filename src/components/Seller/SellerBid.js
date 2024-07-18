@@ -162,7 +162,7 @@ export default function SellerBid() {
                                                         <button type="button" name="send" value="Send" className='yes'
                                                                 onClick={()=>{handleSendNotification(bid.user.user_id, bid.user.email,bidProducts.product_id)}}
                                                         >
-                                                            Send
+                                                            Accept
                                                         </button>
                                                     </td>
                                                 </tr>
