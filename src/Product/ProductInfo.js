@@ -42,9 +42,9 @@ const ProductInfo = () => {
                 })
         }).catch((err)=>{
             alert(err)
-        })*/
+        })
 
-        axios.get("http://localhost:3002/api/buyer/get_product/"+id,{
+        axios.get("http://localhost:3002/api/buyer/get_product/"+params.id,{
         }).then((res)=>{
             console.log(res.data)
             setProduct(res.data)
