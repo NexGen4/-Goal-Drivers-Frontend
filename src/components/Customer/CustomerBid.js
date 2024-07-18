@@ -27,6 +27,7 @@ export default function CustomerBid() {
         .then((res) => {
           const result = res.data.filter(product => product.product.type === "bid");
           result.forEach(product => product.view = false);
+            console.log(result)
           setBidProducts(result);
         }).catch((err) => {
           alert(err);
@@ -99,8 +100,7 @@ export default function CustomerBid() {
 
 
                 let blobUrls = product.product.image.split(', ').map(url => url.trim());
-                console.log(typeof blobUrls)
-                console.log(blobUrls)
+
                 // setPhotoUrls(blobUrls);
                     blobUrls.map(url => console.log(url))
 
@@ -126,8 +126,6 @@ export default function CustomerBid() {
                                   <td><img src={lap} alt="Product" /></td>
                                 </tr>
                     {photoUrls.map((photo, index) => {
-                        console.log(index)
-                        console.log(photo)
 
                         return(
                             <tr key={index}>
