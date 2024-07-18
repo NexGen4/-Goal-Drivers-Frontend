@@ -47,8 +47,16 @@ export default function SellerBid() {
         // }, 1000);
     }
 
-    const handleSendNotification=()=>{
+    const handleSendNotification=(winner_id, email, product_id)=>{
         console.log('bid win')
+        console.log(winner_id)
+
+        axios.put("http://localhost:3002/api/buyer/confirm-winner/" + winner_id+"/"+product_id+"/"+email, {}).then((res) => {
+
+            alert(res.data)
+        }).catch((err) => {
+            alert(err)
+        })
     }
 
 
@@ -152,7 +160,7 @@ export default function SellerBid() {
                                                 <td className='tbl_row' style={{paddingRight:5}}>{bid.bid.bid}</td>
                                                 <td className='tbl_row' style={{paddingRight:5}}>
                                                     <button type="button" name="send" value="Send" className='yes'
-                                                        onClick={handleSendNotification}
+                                                        onClick={()=>{handleSendNotification(bid.user.user_id, bid.user.email,bidProducts.product_id)}}
                                                     >
                                                         Send
                                                     </button>

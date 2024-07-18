@@ -17,8 +17,8 @@ function NavHome() {
           <Link to='/'><li><a href='#'>Home</a></li> </Link>  
           <li><Link to="/aboutus">About us</Link></li>
           <li><a href='#'>services</a></li>
-          <Link to='/product'> <li><a href='#'>Direct Sell</a></li></Link>
-          <Link to='/form'> <li><a href='#'>Bid products</a></li></Link>
+          <Link to='/product/selling'> <li><a href='#'>Direct Sell</a></li></Link>
+          <Link to='/product/bid'> <li><a href='#'>Bid products</a></li></Link>
           <li><a href='#'>contact us</a></li>
           <input type={"search"} placeholder={"Search on budget pos"}></input> {/* Display a search input */}
         </ul>
