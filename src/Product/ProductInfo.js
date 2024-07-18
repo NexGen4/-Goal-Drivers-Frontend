@@ -123,7 +123,7 @@ const ProductInfo = () => {
                                 </div>
                             </div>
                             <div className="flex center">
-                                <button className="buyBtn" onClick={handleOnClick}>Buy Now</button>
+                                <button className="buyBtn">Buy Now</button>
                                 <button className="addBtn" onClick={handleOnClick}> Add to Cart</button>
                             </div>
                         </div>

@@ -1,34 +1,31 @@
-import React, { useState } from "react";
+import React, {useEffect, useState} from "react";
 import "./OrderConfirm.css";
 import NavHome from "../components/NavBar/NavHome";
 import Footer from "../components/Footer/Footer";
 import { useParams,useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const OrderConfirm = () => {
-    const [product, setProduct] = useState({
-        product_id: 1,
-        name: " HP DeskJet 2722 All-in-One Printer with Wireless Printing",
-        price: 1233,
-        rate: 1,
-        image: "https://picsum.photos/200/300",
-    });
+    const [product, setProduct] = useState('');
 
     const {id,qty} = useParams()
     const navigate= useNavigate()
 
     //APIto fetch product details
-    // useEffect(()=>{
-    //     axios.get("http://localhost:3002/api/seller/get_products/"+seller.id,{
+    useEffect(()=>{
+        axios.get("http://localhost:3002/api/buyer/get_product/"+id,{
+        }).then((res)=>{
+            console.log(res.data)
+            setProduct(res.data)
+        }).catch((err)=>{
+            alert(err)
+        })
+    },[])
 
-    //     }).then((res)=>{
-    //         console.log(res.data)
-    //         setProduct(res.data)
-    //     }).catch((err)=>{
-    //         alert(err)
-    //     })
-    // },[])
+    const handleConfirm = () => {
 
-    const handleConfirm = () => {};
+        navigate('/samplePayment')
+    };
 
     const handleCancel = () => {
         navigate('/')

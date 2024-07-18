@@ -30,6 +30,10 @@ function Product({ id, title, price, rating, image , type}) {
         })
     };
 
+    const handleBuyProduct=()=>{
+
+    }
+
     return (
         <div className="product">
             <div className="product_information">
@@ -58,7 +62,7 @@ function Product({ id, title, price, rating, image , type}) {
             </Link>
             <div style={{ display: 'flex', justifyContent: 'space-around', marginTop: '1rem' }}>
                 <Link to={`/productDetail/${id}`}><button className='AddToCart' style={{ width: '8rem', height: '3rem' }}>Add to Cart</button></Link>
-                {type  === 'bid' ? <Link to={`/productDetail/${id}`}><button className='BuyNow' style={{ width: '7rem', height: '3rem', borderRadius: '5px' }}>Buy Now</button></Link>:''}
+                {type  === 'bid' ? <Link to={''}><button className='BuyNow' style={{ width: '7rem', height: '3rem', borderRadius: '5px' }} onClick={handleBuyProduct}>Buy Now</button></Link>:''}
             </div>
         </div>
     );
