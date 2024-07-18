@@ -69,9 +69,6 @@ export default function CustomerBid() {
       setBidProducts(bidProducts_);
       setProductsState(true);
 
-      // setTimeout(() => {
-      //   setProductsState(true);
-      // }, 1000);
     }
 
     async function convertBlobToBase64(blobUrl) {
@@ -94,15 +91,6 @@ export default function CustomerBid() {
         <div className='bg'>
           <div>
             {bidProducts.length !== 0 && productsState && bidProducts.map((product, index) => {
-                // console.log(product)
-                let photoUrls = product.product.image.split(', ').map(url => url.replace('blob:', ''));
-
-
-                let blobUrls = product.product.image.split(', ').map(url => url.trim());
-                console.log(typeof blobUrls)
-                console.log(blobUrls)
-                // setPhotoUrls(blobUrls);
-                    blobUrls.map(url => console.log(url))
 
                 return(
                   <div className='bg' key={index}>
@@ -122,19 +110,9 @@ export default function CustomerBid() {
                                     <p>{product.product.name}</p>
                                   </td>
                                 </tr>
-                                <tr>
-                                  <td><img src={lap} alt="Product" /></td>
+                                <tr key={index}>
+                                    <td><img src={product.product.image} alt={`Product ${index}`} style={{ width: '100px', height: '100px' }} /></td>
                                 </tr>
-                    {photoUrls.map((photo, index) => {
-                        console.log(index)
-                        console.log(photo)
-
-                        return(
-                            <tr key={index}>
-                                <td><img src={photo} alt={`Product ${index}`} style={{ width: '100px', height: '100px' }} /></td>
-                            </tr>
-                        )
-                    })}
                               </tbody>
                             </table>
                           </td>

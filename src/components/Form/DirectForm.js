@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React, {useState} from 'react'
 
-export default function DirectForm({params , pname, image_blobs}) {
+export default function DirectForm({params , pname, files}) {
   const[unitPrice, setUnitPrice] = useState(0);
   const[quantity, setQuantity] = useState(0);
 
@@ -10,20 +10,20 @@ export default function DirectForm({params , pname, image_blobs}) {
   }
 
   function addProduct_(){
+      const formData = new FormData();
+      Array.from(files).forEach(file => {
+          formData.append('images', file);
+      });
 
-    // Join the URLs into a single string
-    const joinedUrls = image_blobs.join(', ');
-    console.log(joinedUrls);
-    console.log(JSON.stringify(joinedUrls));
+      formData.append("name", pname);
+      formData.append("description", params);
+      formData.append("amount", 1);
+      formData.append("seller_id", seller.id);
+      formData.append("price", unitPrice);
 
-    axios.post("http://localhost:3002/api/seller/add_selling_product",{
-        name:pname,
-        description:params,
-        amount:quantity,
-        seller_id:seller.id,
-        price:unitPrice,
-        image:JSON.stringify(joinedUrls),
-    }).then((res)=>{
+    axios.post("http://localhost:3002/api/seller/add_selling_product",formData,
+
+    ).then((res)=>{
       console.log(res.data)
       alert(res.data)
 
